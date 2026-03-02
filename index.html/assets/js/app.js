@@ -18,6 +18,8 @@
     LOANS: "apcs_loans",
     CMS: "apcs_cms",
     AUDIT: "apcs_audit",
+    REMEMBERED_LOGIN: "apcs_remembered_login",
+    POST_LOGIN_REDIRECT: "apcs_post_login_redirect",
   };
 
   // ---------- Helpers ----------
@@ -40,6 +42,30 @@
 
   function uid() {
     return (crypto?.randomUUID ? crypto.randomUUID() : `id_${Date.now()}_${Math.random().toString(16).slice(2)}`);
+  }
+
+  function savePostLoginRedirect(path) {
+    const allowed = new Set(["apply.html", "dashboard.html", "verify.html", "admin.html", "admin-settings.html"]);
+    const target = String(path || "").trim();
+    if (allowed.has(target)) localStorage.setItem(K.POST_LOGIN_REDIRECT, target);
+  }
+
+  function consumePostLoginRedirect(def = "apply.html") {
+    const target = localStorage.getItem(K.POST_LOGIN_REDIRECT);
+    localStorage.removeItem(K.POST_LOGIN_REDIRECT);
+    return target || def;
+  }
+
+  function saveRememberedLogin(email, password, remember) {
+    if (!remember) {
+      localStorage.removeItem(K.REMEMBERED_LOGIN);
+      return;
+    }
+    write(K.REMEMBERED_LOGIN, { email, password, at: nowISO() });
+  }
+
+  function getRememberedLogin() {
+    return read(K.REMEMBERED_LOGIN, null);
   }
 
   function escapeHTML(s) {
@@ -340,8 +366,9 @@
   }
 
   // ---------- Guards ----------
-  function requireAuth() {
+  function requireAuth(nextPath = "") {
     if (!session()?.userId) {
+      savePostLoginRedirect(nextPath || `${location.pathname.split("/").pop() || "dashboard.html"}`);
       toast("Please log in first.", "warn");
       location.href = "login.html";
       return false;
@@ -464,7 +491,7 @@
     const form = $("#kycForm");
     if (!form) return;
 
-    if (!requireAuth()) return;
+    if (!requireAuth("verify.html")) return;
 
     const user = currentUser();
     const statusEl = $("#kycStatus");
@@ -853,7 +880,7 @@
     const onRegisterPage = Boolean($("#registerForm"));
 
     if (s?.userId && (onLoginPage || onRegisterPage)) {
-      location.href = (s.role === "admin") ? "admin.html" : "dashboard.html";
+      location.href = (s.role === "admin") ? "admin.html" : consumePostLoginRedirect("apply.html");
       return;
     }
 
@@ -871,23 +898,31 @@
         if (password.length < 6) return toast("Password must be 6+ chars.", "warn");
 
         await registerUser({ name, email, password });
+        saveRememberedLogin(email, password, true);
         toast("Account created ✅", "success");
-        location.href = "dashboard.html";
+        location.href = "verify.html";
       }));
     }
 
     // Login
     const login = $("#loginForm");
     if (login) {
+      const remember = getRememberedLogin();
+      if (remember?.email) login.email.value = remember.email;
+      if (remember?.password) login.password.value = remember.password;
+      if (login.remember && remember?.email) login.remember.checked = true;
+
       login.addEventListener("submit", safeRun(async (e) => {
         e.preventDefault();
         const email = login.email.value.trim();
         const password = login.password.value;
+        const rememberMe = Boolean(login.remember?.checked);
+
         await loginUser({ email, password });
+        saveRememberedLogin(email, password, rememberMe);
         toast("Logged in ✅", "success");
-        // admin redirects
         const s = session();
-        location.href = (s?.role === "admin") ? "admin.html" : "dashboard.html";
+        location.href = (s?.role === "admin") ? "admin.html" : consumePostLoginRedirect("apply.html");
       }));
     }
 
@@ -899,7 +934,7 @@
 
   function initDashboard() {
     if (!$("#dashboardPage")) return;
-    if (!requireAuth()) return;
+    if (!requireAuth("dashboard.html")) return;
 
     const user = currentUser();
     if (!user) return;
@@ -936,7 +971,7 @@
 
   function initApply() {
     if (!$("#applyPage")) return;
-    if (!requireAuth()) return;
+    if (!requireAuth("apply.html")) return;
     if (!requireKycApproved()) return;
 
     const form = $("#applyForm");
