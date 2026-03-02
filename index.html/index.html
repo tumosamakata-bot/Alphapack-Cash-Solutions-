@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en" data-theme="light" data-skin="aurora">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Alpha Pack Cash Solutions v2</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+
+<body>
+  <!-- FX Background -->
+  <div class="fx-wrap">
+    <div class="fx-gradient"></div>
+    <div class="fx-noise"></div>
+    <canvas id="fxCanvas"></canvas>
+  </div>
+
+  <nav class="navbar navbar-expand-lg glass-nav border-bottom sticky-top">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+        <span class="brand-mark"><i class="bi bi-bank2"></i></span>
+        <span class="fw-semibold">Alpha Pack</span>
+        <span class="text-muted">v2.0</span>
+      </a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse">
+        <div class="ms-auto d-flex align-items-center gap-2">
+          <select id="skinSelect" class="form-select form-select-sm" style="max-width:170px">
+            <option value="aurora">Aurora</option>
+            <option value="neon">Neon</option>
+            <option value="midnight">Midnight</option>
+            <option value="sunrise">Sunrise</option>
+          </select>
+          <button class="btn btn-ghost btn-sm" id="themeToggle" type="button"><i class="bi bi-moon-stars me-1"></i> Theme</button>
+          <a class="btn btn-outline-secondary btn-sm" href="login.html"><i class="bi bi-box-arrow-in-right me-1"></i> Log in</a>
+          <a class="btn btn-primary btn-sm" href="register.html"><i class="bi bi-person-plus me-1"></i> Create account</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="offcanvas offcanvas-end" id="mobileNav">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title">Alpha Pack</h5>
+      <button class="btn-close" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body d-grid gap-2">
+      <select id="skinSelect" class="form-select form-select-sm">
+        <option value="aurora">Aurora</option>
+        <option value="neon">Neon</option>
+        <option value="midnight">Midnight</option>
+        <option value="sunrise">Sunrise</option>
+      </select>
+      <button class="btn btn-ghost" id="themeToggleMobile" type="button"><i class="bi bi-moon-stars me-1"></i> Theme</button>
+      <a class="btn btn-outline-secondary" href="login.html">Log in</a>
+      <a class="btn btn-primary" href="register.html">Create account</a>
+      <hr>
+      <a class="btn btn-light text-start" href="apply.html"><i class="bi bi-wallet2 me-2"></i> Apply for loan</a>
+      <a class="btn btn-light text-start" href="dashboard.html"><i class="bi bi-grid-1x2 me-2"></i> Dashboard</a>
+    </div>
+  </div>
+
+  <header class="hero">
+    <div class="container py-5 py-lg-6">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-6 reveal">
+          <div class="badge-soft mb-3"><i class="bi bi-shield-lock me-1"></i> Trust-first microlending</div>
+          <h1 class="display-5 fw-semibold lh-tight" id="heroTitle">
+            Loans that feel <span class="gradient-text">simple</span>, not scary.
+          </h1>
+          <p class="lead text-muted mt-3" id="heroSubtitle">
+            Clear steps, transparent costs, and a calm dashboard.
+          </p>
+
+          <div class="d-flex flex-column flex-sm-row gap-2 mt-4">
+            <a class="btn btn-primary btn-lg" href="apply.html" id="heroCtaPrimary">Start application</a>
+            <a class="btn btn-primary-soft btn-lg" href="dashboard.html" id="heroCtaSecondary">View dashboard demo</a>
+          </div>
+
+          <div class="mt-4 d-flex flex-wrap gap-2">
+            <span class="pill"><i class="bi bi-phone me-1"></i> Mobile-first</span>
+            <span class="pill"><i class="bi bi-shield-check me-1"></i> Verification gate</span>
+            <span class="pill"><i class="bi bi-graph-up-arrow me-1"></i> Admin analytics</span>
+          </div>
+        </div>
+
+        <div class="col-lg-6 reveal">
+          <div class="hero-frame p-4 p-lg-5">
+            <div class="d-flex align-items-center justify-content-between">
+              <div>
+                <div class="fw-semibold">v2.0 Preview</div>
+                <div class="small text-muted">Futuristic UI + real gates</div>
+              </div>
+              <span class="pill"><i class="bi bi-stars me-1"></i> Premium</span>
+            </div>
+
+            <div class="mt-4 row g-3">
+              <div class="col-12">
+                <div class="mini-card">
+                  <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                      <div class="fw-semibold">Apply only after KYC</div>
+                      <div class="small text-muted">Omang/Student ID required</div>
+                    </div>
+                    <i class="bi bi-camera fs-4"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="mini-card">
+                  <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                      <div class="fw-semibold">Admin review</div>
+                      <div class="small text-muted">Approve/Decline + audit logs</div>
+                    </div>
+                    <i class="bi bi-shield-lock fs-4"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <img id="heroImage" class="d-none mt-3 w-100 rounded-4 border" alt="Hero" />
+            <div class="small text-muted mt-3">
+              Admin can edit homepage content & images (no code) in <b>Admin Settings</b>.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container">
+      <div class="row g-3">
+        <div class="col-md-4 reveal">
+          <div class="feature-card h-100" data-feature="0">
+            <div class="icon-circle"><i data-f-icon class="bi bi-shield-check fs-4"></i></div>
+            <h3 class="h5 fw-semibold mt-3" data-f-title>Secure by default</h3>
+            <p class="text-muted mb-0" data-f-desc>Safe flows, respectful UX, privacy-first.</p>
+          </div>
+        </div>
+        <div class="col-md-4 reveal">
+          <div class="feature-card h-100" data-feature="1">
+            <div class="icon-circle"><i data-f-icon class="bi bi-speedometer2 fs-4"></i></div>
+            <h3 class="h5 fw-semibold mt-3" data-f-title>Fast flow</h3>
+            <p class="text-muted mb-0" data-f-desc>Short steps, progress indicators, instant validation.</p>
+          </div>
+        </div>
+        <div class="col-md-4 reveal">
+          <div class="feature-card h-100" data-feature="2">
+            <div class="icon-circle"><i data-f-icon class="bi bi-phone fs-4"></i></div>
+            <h3 class="h5 fw-semibold mt-3" data-f-title>Mobile-first</h3>
+            <p class="text-muted mb-0" data-f-desc>Tap-friendly, responsive, smooth navigation.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="cardx p-4 mt-4 reveal">
+        <div class="d-flex flex-column flex-md-row align-items-start justify-content-between gap-2">
+          <div>
+            <div class="fw-semibold">Admin area (confidential)</div>
+            <div class="text-muted small">Setup once → then role-gated access.</div>
+          </div>
+          <div class="d-flex gap-2">
+            <a class="btn btn-outline-secondary" href="admin-setup.html"><i class="bi bi-person-gear me-1"></i> Admin Setup</a>
+            <a class="btn btn-primary-soft" href="admin.html"><i class="bi bi-speedometer me-1"></i> Admin Dashboard</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="border-top">
+    <div class="container py-4">
+      <div class="d-flex flex-column flex-md-row justify-content-between gap-2">
+        <div class="small text-muted">© <span id="year"></span> Alpha Pack Cash Solutions</div>
+        <div class="small text-muted">v2.0 Prototype • Next step: backend security + database</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

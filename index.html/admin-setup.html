@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en" data-theme="light" data-skin="aurora">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin Setup • Alpha Pack</title>
+
+  <!-- Bootstrap + Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+  <!-- Your Futuristic Styles -->
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+
+<body class="auth-bg">
+  <!-- FX Background (optional but matches v2 look) -->
+  <div class="fx-wrap">
+    <div class="fx-gradient"></div>
+    <div class="fx-noise"></div>
+    <canvas id="fxCanvas"></canvas>
+  </div>
+
+  <nav class="navbar glass-nav border-bottom">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+        <span class="brand-mark"><i class="bi bi-bank2"></i></span>
+        <span class="fw-semibold">Alpha Pack</span>
+        <span class="text-muted">Admin</span>
+      </a>
+
+      <div class="d-flex gap-2 align-items-center">
+        <select id="skinSelect" class="form-select form-select-sm">
+          <option value="aurora">Aurora</option>
+          <option value="neon">Neon</option>
+          <option value="midnight">Midnight</option>
+          <option value="sunrise">Sunrise</option>
+        </select>
+        <button class="btn btn-ghost btn-sm" id="themeToggle" type="button">
+          <i class="bi bi-moon-stars me-1"></i> Theme
+        </button>
+        <a class="btn btn-outline-secondary btn-sm" href="index.html">
+          <i class="bi bi-house me-1"></i> Home
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container py-5">
+    <div class="mx-auto" style="max-width: 720px;">
+      <div class="cardx p-4 p-md-5 reveal">
+        <div class="d-flex flex-wrap align-items-start justify-content-between gap-2">
+          <div>
+            <h1 class="h4 fw-semibold mb-1">Admin Setup</h1>
+            <p class="text-muted mb-0">
+              Create the <b>first admin account</b>. This is a <b>one-time</b> setup.
+            </p>
+          </div>
+          <span class="pill"><i class="bi bi-shield-lock me-1"></i> Confidential</span>
+        </div>
+
+        <div class="alert alert-warning mt-3 d-none" id="setupDisabled">
+          <i class="bi bi-exclamation-triangle me-1"></i>
+          An admin account already exists. Setup has been disabled.
+        </div>
+
+        <div class="mini-card mt-3">
+          <div class="fw-semibold mb-1">Security note (prototype)</div>
+          <div class="text-muted small mb-0">
+            This setup stores data in <code>localStorage</code> for demo/testing only.
+            For real production security, admin creation must happen on the server with RBAC + audit logging.
+          </div>
+        </div>
+
+        <form id="adminSetupForm" class="mt-4" autocomplete="off">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">Admin full name</label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-person"></i></span>
+                <input class="form-control" name="name" minlength="2" required placeholder="Admin Name">
+              </div>
+              <div class="form-text text-muted">Used for audit trails and approvals.</div>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Admin email</label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                <input class="form-control" name="email" type="email" required placeholder="admin@alphapack.co.bw">
+              </div>
+              <div class="form-text text-muted">This becomes the admin login identity.</div>
+            </div>
+
+            <div class="col-12">
+              <label class="form-label">Password (8+ characters)</label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-key"></i></span>
+                <input class="form-control" name="password" type="password" minlength="8" required placeholder="Create a strong password">
+                <button class="btn btn-outline-secondary" type="button" id="togglePwd">
+                  <i class="bi bi-eye"></i>
+                </button>
+              </div>
+              <div class="form-text text-muted">
+                Tip: use a unique password. (Server-side hashing comes later.)
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label class="form-label">Confirm password</label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                <input class="form-control" name="confirm" type="password" minlength="8" required placeholder="Repeat password">
+              </div>
+            </div>
+          </div>
+
+          <div class="alert alert-danger d-none mt-3" id="setupError"></div>
+
+          <button class="btn btn-primary btn-lg w-100 mt-4" type="submit">
+            <i class="bi bi-person-gear me-1"></i> Create admin & continue
+          </button>
+
+          <div class="d-flex flex-column flex-sm-row justify-content-between gap-2 mt-3 small">
+            <a class="link-muted" href="login.html">Already have admin? Log in</a>
+            <a class="link-muted" href="admin.html">Go to Admin Dashboard</a>
+          </div>
+        </form>
+      </div>
+
+      <div class="small text-muted text-center mt-3 reveal">
+        After setup: use <b>Admin Settings</b> to edit the homepage content + upload images.
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Tiny UI-only password toggle + confirm check.
+    document.addEventListener("DOMContentLoaded", () => {
+      const form = document.getElementById("adminSetupForm");
+      const err = document.getElementById("setupError");
+      const pwd = form?.password;
+      const confirm = form?.confirm;
+
+      const toggleBtn = document.getElementById("togglePwd");
+      if (toggleBtn && pwd) {
+        toggleBtn.addEventListener("click", () => {
+          const isPass = pwd.type === "password";
+          pwd.type = isPass ? "text" : "password";
+          toggleBtn.querySelector("i").className = "bi " + (isPass ? "bi-eye-slash" : "bi-eye");
+        });
+      }
+
+      if (form) {
+        form.addEventListener("submit", (e) => {
+          // Let app.js handle the actual creation logic,
+          // but we can stop obvious mismatch early to avoid confusion.
+          if (pwd?.value !== confirm?.value) {
+            e.preventDefault();
+            if (err) {
+              err.textContent = "Passwords do not match.";
+              err.classList.remove("d-none");
+            }
+          } else {
+            if (err) err.classList.add("d-none");
+          }
+        });
+      }
+    });
+  </script>
+
+  <!-- Bootstrap + Your App JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
