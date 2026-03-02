@@ -128,17 +128,21 @@
     setTheme(theme);
     setSkin(skin);
 
+    const applySkinToAll = (value) => {
+      setSkin(value);
+      $$("#skinSelect").forEach((sel) => { sel.value = value; });
+    };
+
     const toggle = $("#themeToggle");
     if (toggle) toggle.addEventListener("click", () => setTheme((themeNow() === "dark") ? "light" : "dark"));
 
     const toggle2 = $("#themeToggleMobile");
     if (toggle2) toggle2.addEventListener("click", () => setTheme((themeNow() === "dark") ? "light" : "dark"));
 
-    const skinSel = $("#skinSelect");
-    if (skinSel) {
+    $$("#skinSelect").forEach((skinSel) => {
       skinSel.value = skin;
-      skinSel.addEventListener("change", () => setSkin(skinSel.value));
-    }
+      skinSel.addEventListener("change", () => applySkinToAll(skinSel.value));
+    });
   }
   function themeNow() {
     return document.documentElement.getAttribute("data-theme") || "light";
@@ -238,16 +242,16 @@
     // Default CMS (editable from admin-settings.html)
     if (!cms) {
       write(K.CMS, {
-        heroTitle: "Loans that feel simple, not scary.",
-        heroHighlight: "simple",
-        heroSubtitle: "Clear steps, transparent costs, and a calm dashboard. Finance should reduce stress.",
-        heroCtaPrimary: "Start application",
-        heroCtaSecondary: "View dashboard demo",
+        heroTitle: "Microloans that feel fair, fast, and transparent.",
+        heroHighlight: "fair",
+        heroSubtitle: "Apply in minutes, track repayment clearly, and grow your credit confidence.",
+        heroCtaPrimary: "Apply for a microloan",
+        heroCtaSecondary: "See borrower dashboard",
         heroImageDataUrl: "",
         features: [
-          { icon: "bi-shield-check", title: "Secure by default", desc: "Safe flows, respectful UX, privacy-first." },
-          { icon: "bi-speedometer2", title: "Fast flow", desc: "Short steps, progress indicators, instant validation." },
-          { icon: "bi-phone", title: "Mobile-first", desc: "Tap-friendly, responsive, smooth navigation." }
+          { icon: "bi-shield-check", title: "Transparent pricing", desc: "No hidden fees, just clear repayment plans." },
+          { icon: "bi-speedometer2", title: "Fast approvals", desc: "Most eligible borrowers get a decision the same day." },
+          { icon: "bi-phone", title: "Built for mobile money", desc: "Repay from your phone with reminders and progress alerts." }
         ]
       });
     }
@@ -607,7 +611,7 @@
       const password = String(form.password.value || "");
 
       if (name.length < 2) return toast("Name required.", "warn");
-      if (!email.includes("@")) return toast("Valid email required.", "warn");
+      if (!/^\S+@\S+\.\S+$/.test(email)) return toast("Valid email required.", "warn");
       if (password.length < 8) return toast("Use 8+ character password.", "warn");
 
       const hash = await sha256(password);
@@ -832,6 +836,15 @@
 
   // ---------- Page initializers ----------
   function initAuthPages() {
+    const s = session();
+    const onLoginPage = Boolean($("#loginForm"));
+    const onRegisterPage = Boolean($("#registerForm"));
+
+    if (s?.userId && (onLoginPage || onRegisterPage)) {
+      location.href = (s.role === "admin") ? "admin.html" : "dashboard.html";
+      return;
+    }
+
     // Register
     const reg = $("#registerForm");
     if (reg) {
@@ -842,7 +855,7 @@
         const password = reg.password.value;
 
         if (name.length < 2) return toast("Name required.", "warn");
-        if (!email.includes("@")) return toast("Valid email required.", "warn");
+        if (!/^\S+@\S+\.\S+$/.test(email)) return toast("Valid email required.", "warn");
         if (password.length < 6) return toast("Password must be 6+ chars.", "warn");
 
         await registerUser({ name, email, password });
