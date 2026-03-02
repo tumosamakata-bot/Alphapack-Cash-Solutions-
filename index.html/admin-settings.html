@@ -19,11 +19,6 @@
         <span class="fw-semibold">Admin Settings</span>
       </a>
       <div class="d-flex gap-2">
-        <select id="skinSelect" class="form-select form-select-sm">
-          <option value="aurora">Aurora</option><option value="neon">Neon</option>
-          <option value="midnight">Midnight</option><option value="sunrise">Sunrise</option>
-        </select>
-        <button class="btn btn-ghost btn-sm" id="themeToggle" type="button">Theme</button>
         <a class="btn btn-outline-secondary btn-sm" href="admin.html">Dashboard</a>
         <button class="btn btn-outline-secondary btn-sm" id="logoutBtn" type="button">Log out</button>
       </div>
@@ -35,7 +30,7 @@
       <div class="d-flex justify-content-between flex-wrap gap-2">
         <div>
           <h1 class="h4 fw-semibold mb-1">Homepage CMS</h1>
-          <p class="text-muted mb-0">Change main page text + images without touching code.</p>
+          <p class="text-muted mb-0">Update website messaging, ad content, and business contacts without touching code.</p>
         </div>
         <a class="btn btn-primary-soft" href="index.html"><i class="bi bi-eye me-1"></i> Preview home</a>
       </div>
@@ -61,6 +56,26 @@
           <div class="col-12">
             <label class="form-label">Hero subtitle</label>
             <textarea class="form-control" rows="2" name="heroSubtitle"></textarea>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Business phone</label>
+            <input class="form-control" name="contactPhone" placeholder="+267 ...">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Business email</label>
+            <input class="form-control" name="contactEmail" placeholder="info@...">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Office address</label>
+            <input class="form-control" name="officeAddress" placeholder="City, street">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Ad section headline</label>
+            <input class="form-control" name="adHeadline" placeholder="Promote with AlphaPack">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Ad section description</label>
+            <input class="form-control" name="adCopy" placeholder="Monthly paid placements for partners">
           </div>
 
           <div class="col-12">

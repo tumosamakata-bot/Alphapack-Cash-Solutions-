@@ -12,13 +12,14 @@
 
   // ---------- Storage Keys ----------
   const K = {
-    THEME: "apcs_theme",     // light/dark
-    SKIN: "apcs_skin",       // aurora/neon/midnight/sunrise
+    THEME: "apcs_theme",     // locked single theme
     SESSION: "apcs_session",
     USERS: "apcs_users",
     LOANS: "apcs_loans",
     CMS: "apcs_cms",
     AUDIT: "apcs_audit",
+    REMEMBERED_LOGIN: "apcs_remembered_login",
+    POST_LOGIN_REDIRECT: "apcs_post_login_redirect",
   };
 
   // ---------- Helpers ----------
@@ -41,6 +42,30 @@
 
   function uid() {
     return (crypto?.randomUUID ? crypto.randomUUID() : `id_${Date.now()}_${Math.random().toString(16).slice(2)}`);
+  }
+
+  function savePostLoginRedirect(path) {
+    const allowed = new Set(["apply.html", "dashboard.html", "verify.html", "admin.html", "admin-settings.html"]);
+    const target = String(path || "").trim();
+    if (allowed.has(target)) localStorage.setItem(K.POST_LOGIN_REDIRECT, target);
+  }
+
+  function consumePostLoginRedirect(def = "apply.html") {
+    const target = localStorage.getItem(K.POST_LOGIN_REDIRECT);
+    localStorage.removeItem(K.POST_LOGIN_REDIRECT);
+    return target || def;
+  }
+
+  function saveRememberedLogin(email, password, remember) {
+    if (!remember) {
+      localStorage.removeItem(K.REMEMBERED_LOGIN);
+      return;
+    }
+    write(K.REMEMBERED_LOGIN, { email, password, at: nowISO() });
+  }
+
+  function getRememberedLogin() {
+    return read(K.REMEMBERED_LOGIN, null);
   }
 
   function escapeHTML(s) {
@@ -118,30 +143,17 @@
     document.documentElement.setAttribute("data-theme", theme);
     localStorage.setItem(K.THEME, theme);
   }
-  function setSkin(skin) {
-    document.documentElement.setAttribute("data-skin", skin);
-    localStorage.setItem(K.SKIN, skin);
-  }
   function initTheme() {
-    const theme = localStorage.getItem(K.THEME) || "light";
-    const skin = localStorage.getItem(K.SKIN) || "aurora";
-    setTheme(theme);
-    setSkin(skin);
+    const singleTheme = "dark";
+    setTheme(singleTheme);
+    document.documentElement.setAttribute("data-skin", "professional");
+    localStorage.setItem(K.THEME, singleTheme);
 
-    const applySkinToAll = (value) => {
-      setSkin(value);
-      $$("#skinSelect").forEach((sel) => { sel.value = value; });
-    };
-
-    const toggle = $("#themeToggle");
-    if (toggle) toggle.addEventListener("click", () => setTheme((themeNow() === "dark") ? "light" : "dark"));
-
-    const toggle2 = $("#themeToggleMobile");
-    if (toggle2) toggle2.addEventListener("click", () => setTheme((themeNow() === "dark") ? "light" : "dark"));
-
-    $$("#skinSelect").forEach((skinSel) => {
-      skinSel.value = skin;
-      skinSel.addEventListener("change", () => applySkinToAll(skinSel.value));
+    ["#themeToggle", "#themeToggleMobile", "#skinSelect"].forEach((sel) => {
+      $$(sel).forEach((el) => {
+        el.setAttribute("hidden", "hidden");
+        el.setAttribute("aria-hidden", "true");
+      });
     });
   }
   function themeNow() {
@@ -242,12 +254,17 @@
     // Default CMS (editable from admin-settings.html)
     if (!cms) {
       write(K.CMS, {
-        heroTitle: "Microloans that feel fair, fast, and transparent.",
-        heroHighlight: "fair",
-        heroSubtitle: "Apply in minutes, track repayment clearly, and grow your credit confidence.",
-        heroCtaPrimary: "Apply for a microloan",
-        heroCtaSecondary: "See borrower dashboard",
+        heroTitle: "Fast and secure personal loans for salaried and self-employed clients.",
+        heroHighlight: "secure",
+        heroSubtitle: "AlphaPack Cash Solutions provides transparent micro-loans, structured repayments, and trusted support for households and small businesses.",
+        heroCtaPrimary: "Start your loan application",
+        heroCtaSecondary: "Open client dashboard",
         heroImageDataUrl: "",
+        contactPhone: "+267 71 000 000",
+        contactEmail: "support@alphapackcash.co.bw",
+        officeAddress: "Plot 2457, Gaborone CBD, Botswana",
+        adHeadline: "Promote your business to our active borrower network.",
+        adCopy: "Reserve ad slots on our homepage and dashboard for paid monthly campaigns.",
         features: [
           { icon: "bi-shield-check", title: "Transparent pricing", desc: "No hidden fees, just clear repayment plans." },
           { icon: "bi-speedometer2", title: "Fast approvals", desc: "Most eligible borrowers get a decision the same day." },
@@ -349,8 +366,9 @@
   }
 
   // ---------- Guards ----------
-  function requireAuth() {
+  function requireAuth(nextPath = "") {
     if (!session()?.userId) {
+      savePostLoginRedirect(nextPath || `${location.pathname.split("/").pop() || "dashboard.html"}`);
       toast("Please log in first.", "warn");
       location.href = "login.html";
       return false;
@@ -420,6 +438,11 @@
     const cta1 = $("#heroCtaPrimary");
     const cta2 = $("#heroCtaSecondary");
     const img = $("#heroImage");
+    const phone = $("#businessPhone");
+    const email = $("#businessEmail");
+    const address = $("#businessAddress");
+    const adHeadline = $("#adHeadline");
+    const adCopy = $("#adCopy");
 
     if (titleEl) titleEl.innerHTML = escapeHTML(cms.heroTitle).replace(
       escapeHTML(cms.heroHighlight || ""),
@@ -433,6 +456,12 @@
       img.src = cms.heroImageDataUrl;
       img.classList.remove("d-none");
     }
+
+    if (phone) phone.textContent = cms.contactPhone || "";
+    if (email) email.textContent = cms.contactEmail || "";
+    if (address) address.textContent = cms.officeAddress || "";
+    if (adHeadline) adHeadline.textContent = cms.adHeadline || "";
+    if (adCopy) adCopy.textContent = cms.adCopy || "";
 
     // features
     const feats = cms.features || [];
@@ -462,7 +491,7 @@
     const form = $("#kycForm");
     if (!form) return;
 
-    if (!requireAuth()) return;
+    if (!requireAuth("verify.html")) return;
 
     const user = currentUser();
     const statusEl = $("#kycStatus");
@@ -783,6 +812,11 @@
     form.heroSubtitle.value = cms.heroSubtitle || "";
     form.heroCtaPrimary.value = cms.heroCtaPrimary || "";
     form.heroCtaSecondary.value = cms.heroCtaSecondary || "";
+    form.contactPhone.value = cms.contactPhone || "";
+    form.contactEmail.value = cms.contactEmail || "";
+    form.officeAddress.value = cms.officeAddress || "";
+    form.adHeadline.value = cms.adHeadline || "";
+    form.adCopy.value = cms.adCopy || "";
 
     // feature fields
     for (let i = 0; i < 3; i++) {
@@ -815,6 +849,11 @@
         heroSubtitle: form.heroSubtitle.value.trim(),
         heroCtaPrimary: form.heroCtaPrimary.value.trim(),
         heroCtaSecondary: form.heroCtaSecondary.value.trim(),
+        contactPhone: form.contactPhone.value.trim(),
+        contactEmail: form.contactEmail.value.trim(),
+        officeAddress: form.officeAddress.value.trim(),
+        adHeadline: form.adHeadline.value.trim(),
+        adCopy: form.adCopy.value.trim(),
         heroImageDataUrl,
         features: [
           { icon: form.f0_icon.value.trim(), title: form.f0_title.value.trim(), desc: form.f0_desc.value.trim() },
@@ -841,7 +880,7 @@
     const onRegisterPage = Boolean($("#registerForm"));
 
     if (s?.userId && (onLoginPage || onRegisterPage)) {
-      location.href = (s.role === "admin") ? "admin.html" : "dashboard.html";
+      location.href = (s.role === "admin") ? "admin.html" : consumePostLoginRedirect("apply.html");
       return;
     }
 
@@ -859,23 +898,31 @@
         if (password.length < 6) return toast("Password must be 6+ chars.", "warn");
 
         await registerUser({ name, email, password });
+        saveRememberedLogin(email, password, true);
         toast("Account created ✅", "success");
-        location.href = "dashboard.html";
+        location.href = "verify.html";
       }));
     }
 
     // Login
     const login = $("#loginForm");
     if (login) {
+      const remember = getRememberedLogin();
+      if (remember?.email) login.email.value = remember.email;
+      if (remember?.password) login.password.value = remember.password;
+      if (login.remember && remember?.email) login.remember.checked = true;
+
       login.addEventListener("submit", safeRun(async (e) => {
         e.preventDefault();
         const email = login.email.value.trim();
         const password = login.password.value;
+        const rememberMe = Boolean(login.remember?.checked);
+
         await loginUser({ email, password });
+        saveRememberedLogin(email, password, rememberMe);
         toast("Logged in ✅", "success");
-        // admin redirects
         const s = session();
-        location.href = (s?.role === "admin") ? "admin.html" : "dashboard.html";
+        location.href = (s?.role === "admin") ? "admin.html" : consumePostLoginRedirect("apply.html");
       }));
     }
 
@@ -887,7 +934,7 @@
 
   function initDashboard() {
     if (!$("#dashboardPage")) return;
-    if (!requireAuth()) return;
+    if (!requireAuth("dashboard.html")) return;
 
     const user = currentUser();
     if (!user) return;
@@ -924,7 +971,7 @@
 
   function initApply() {
     if (!$("#applyPage")) return;
-    if (!requireAuth()) return;
+    if (!requireAuth("apply.html")) return;
     if (!requireKycApproved()) return;
 
     const form = $("#applyForm");
