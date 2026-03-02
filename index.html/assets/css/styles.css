@@ -233,8 +233,26 @@ video{ width:100%; height:100%; object-fit:cover; }
 .ad-zone{ border:1px solid color-mix(in srgb, var(--accent) 45%, var(--border)); }
 
 
-.form-check-label{ color: var(--fg); }
-.form-check-input{ border-color: var(--border); background-color: color-mix(in srgb, var(--fg) 8%, transparent); }
-.form-check-input:checked{ background-color: var(--accent); border-color: color-mix(in srgb, var(--accent) 80%, #fff 20%); }
-.trust-copy{ color: color-mix(in srgb, var(--fg) 84%, var(--accent) 16%); font-weight: 500; line-height: 1.5; }
-.lead{ color: color-mix(in srgb, var(--fg) 80%, var(--muted) 20%) !important; }
+.form-check-label { 
+  color: var(--fg); 
+}
+
+.form-check-input { 
+  border-color: var(--border); 
+  background-color: color-mix(in srgb, var(--fg) 8%, transparent); 
+}
+
+.form-check-input:checked { 
+  background-color: var(--accent); 
+  border-color: color-mix(in srgb, var(--accent) 80%, #fff 20%); 
+}
+
+.trust-copy { 
+  color: color-mix(in srgb, var(--fg) 84%, var(--accent) 16%); 
+  font-weight: 500; 
+  line-height: 1.5; 
+}
+
+.lead { 
+  color: color-mix(in srgb, var(--fg) 80%, var(--muted) 20%) !important; 
+}
