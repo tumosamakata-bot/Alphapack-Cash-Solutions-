@@ -15,28 +15,16 @@
 }
 
 html[data-theme="dark"]{
-  --bg:#070913; --fg:#e5e7eb; --muted:#a1a1aa;
+  --bg:#05070f; --fg:#f8fafc; --muted:#cbd5e1;
   --card: rgba(14,16,26,.70);
   --border: rgba(255,255,255,.12);
   --shadow: 0 22px 80px rgba(0,0,0,.55);
 }
 
-/* Skins (futuristic palettes) */
-html[data-skin="aurora"]{
+/* Single professional skin */
+html[data-skin="professional"]{
   --accent:#5b21b6; --accent2:#22c55e; --accent3:#38bdf8;
   --glow: rgba(34,197,94,.25);
-}
-html[data-skin="neon"]{
-  --accent:#06b6d4; --accent2:#a855f7; --accent3:#f43f5e;
-  --glow: rgba(168,85,247,.28);
-}
-html[data-skin="midnight"]{
-  --accent:#60a5fa; --accent2:#34d399; --accent3:#f59e0b;
-  --glow: rgba(96,165,250,.22);
-}
-html[data-skin="sunrise"]{
-  --accent:#f97316; --accent2:#ef4444; --accent3:#facc15;
-  --glow: rgba(249,115,22,.24);
 }
 
 *{ box-sizing:border-box; }
@@ -238,3 +226,8 @@ html[data-theme="dark"] .input-group-text{
     var(--bg);
 }
 .dash-sticky{ top: 1rem; }
+
+html[data-theme="dark"] .text-muted{ color: var(--muted) !important; }
+.offcanvas{ background: color-mix(in srgb, var(--bg) 92%, #000 8%); color: var(--fg);}
+video{ width:100%; height:100%; object-fit:cover; }
+.ad-zone{ border:1px solid color-mix(in srgb, var(--accent) 45%, var(--border)); }
