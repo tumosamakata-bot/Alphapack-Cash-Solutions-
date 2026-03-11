@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Log In · Alpha Pack</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23f0a832'/><text x='16' y='22' text-anchor='middle' font-size='16' font-weight='900' font-family='serif' fill='%23040810'>AP</text></svg>">
+  <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body data-page="login">
+<div class="bg-canvas"><div class="bg-gradient"></div><canvas id="particleCanvas"></canvas></div>
+<div id="pageLoader"><div class="loader-mark">AP</div><div class="loader-track"><div class="loader-bar"></div></div></div>
+<nav class="nav"><div class="nav-wrap">
+  <a href="index.html" class="nav-logo"><div class="nav-logo-mark">AP</div><div class="nav-logo-text"><strong>Alpha Pack</strong><span>Cash Solutions</span></div></a>
+  <div class="nav-right"><a href="register.html" class="btn btn-primary btn-sm btn-round">Create account</a></div>
+  <button class="nav-burger" id="navBurger"><span></span><span></span><span></span></button>
+</div></nav>
+<div class="nav-drawer" id="navDrawer">
+  <a href="index.html" class="nav-drawer-link">Home</a>
+  <div class="drawer-sep"></div><div class="drawer-actions"><a href="register.html" class="btn btn-primary btn-full btn-round">Create account</a></div>
+</div>
+
+<div class="page-body pt-nav" style="display:flex;align-items:center;min-height:100vh">
+  <div class="wrap wrap-sm w-full" style="padding-top:40px;padding-bottom:80px">
+    <div class="text-center mb32 reveal">
+      <div class="nav-logo-mark" style="margin:0 auto 16px;width:52px;height:52px;font-size:20px">AP</div>
+      <h1 class="h4 mb4">Welcome back</h1>
+      <p class="caption">Log in to access your Alpha Pack dashboard.</p>
+    </div>
+    <div class="card amber-border reveal d1">
+      <div class="card-body-xl">
+        <form id="loginForm" novalidate style="display:flex;flex-direction:column;gap:18px">
+          <div class="form-field"><label class="form-label">Email address</label><div class="input-wrap"><span class="input-icon">@</span><input class="input" name="email" type="email" required placeholder="you@example.com" autocomplete="email"></div></div>
+          <div class="form-field"><label class="form-label">Password</label><div style="position:relative"><input class="input" name="password" type="password" required placeholder="Your password" autocomplete="current-password"><button type="button" class="pw-eye">👁</button></div></div>
+          <button type="submit" class="btn btn-primary btn-full btn-xl btn-round">Log in →</button>
+          <div class="flex f-between mt4 caption">
+            <a href="register.html" style="color:var(--tx-3)">Create an account</a>
+            <a href="index.html" style="color:var(--tx-3)">← Back home</a>
+          </div>
+        </form>
+        <div class="gold-rule mt24 mb16"></div>
+        <div class="text-center caption">Don't have an account? <a href="register.html" style="color:var(--amber-2)">Register as a student →</a></div>
+      </div>
+    </div>
+    <div class="text-center mt20 caption reveal d2">Need help? <a href="https://wa.me/26776807549" target="_blank" style="color:var(--amber-2)">WhatsApp 26776807549</a></div>
+  </div>
+</div>
+
+<div id="toastHost"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script type="module" src="assets/js/app.js"></script>
+</body>
+</html>

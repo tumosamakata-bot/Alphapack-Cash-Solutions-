@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Your Alpha Pack student dashboard.">
+  <title>Dashboard · Alpha Pack</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23f0a832'/><text x='16' y='22' text-anchor='middle' font-size='16' font-weight='900' font-family='serif' fill='%23040810'>AP</text></svg>">
+  <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body data-page="dashboard">
+<div class="bg-canvas"><div class="bg-gradient"></div><canvas id="particleCanvas"></canvas></div>
+<div id="pageLoader"><div class="loader-mark">AP</div><div class="loader-track"><div class="loader-bar"></div></div></div>
+
+<nav class="nav">
+  <div class="nav-wrap">
+    <a href="index.html" class="nav-logo"><div class="nav-logo-mark">AP</div><div class="nav-logo-text"><strong>Alpha Pack</strong><span>Cash Solutions</span></div></a>
+    <nav class="nav-center">
+      <a href="dashboard.html" class="nav-link">Dashboard</a>
+      <a href="apply.html" class="nav-link">Apply</a>
+      <a href="verify.html" class="nav-link">Verify ID</a>
+    </nav>
+    <div class="nav-right">
+      <button id="logoutBtn" class="btn btn-ghost btn-sm">Log out</button>
+    </div>
+    <button class="nav-burger" id="navBurger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="nav-drawer" id="navDrawer">
+  <a href="dashboard.html" class="nav-drawer-link">Dashboard</a>
+  <a href="apply.html"     class="nav-drawer-link">Apply for loan</a>
+  <a href="verify.html"    class="nav-drawer-link">Verify Student ID</a>
+  <div class="drawer-sep"></div>
+  <div class="drawer-actions"><button class="btn btn-ghost btn-full" onclick="document.getElementById('logoutBtn').click()">Log out</button></div>
+</div>
+
+<div class="page-body">
+  <div class="wrap" style="padding-bottom:60px">
+    <div class="dash-shell">
+
+      <!-- SIDEBAR -->
+      <aside class="dash-sidebar">
+        <div class="card">
+          <div class="card-body">
+            <!-- Avatar & name -->
+            <div class="flex f-align gap12 mb16">
+              <div class="nav-logo-mark" style="font-size:18px;width:44px;height:44px;flex-shrink:0">👤</div>
+              <div class="min-w0">
+                <div class="fw-600 truncate" id="dName">Loading…</div>
+                <div class="caption truncate" id="dEmail"></div>
+              </div>
+            </div>
+            <div class="gold-rule mb16"></div>
+
+            <!-- KYC status -->
+            <div class="mb16">
+              <div class="caption mb8">Verification status</div>
+              <span class="status status-not_started" id="dKycBadge">—</span>
+            </div>
+
+            <!-- Student info -->
+            <div style="font-size:.82rem;color:var(--tx-3);display:flex;flex-direction:column;gap:5px;margin-bottom:16px">
+              <div class="truncate" id="dInstitution"></div>
+              <div class="truncate" id="dProgram"></div>
+              <div id="dYear"></div>
+              <div class="mono" style="font-size:.78rem" id="dStudentId"></div>
+            </div>
+            <div class="gold-rule mb16"></div>
+
+            <!-- Nav -->
+            <div class="dash-nav-label">Navigation</div>
+            <a href="dashboard.html" class="dash-nav-item active"><span class="dash-nav-icon">📊</span>My loans</a>
+            <a href="verify.html"    class="dash-nav-item"><span class="dash-nav-icon">📸</span>Verify Student ID</a>
+            <a href="apply.html"     class="dash-nav-item"><span class="dash-nav-icon">📝</span>Apply for loan</a>
+
+            <div class="gold-rule mt16 mb16"></div>
+            <!-- Next step widget -->
+            <div class="dash-nav-label">Next step</div>
+            <div id="nextStep" style="margin-top:8px">
+              <div style="height:72px;background:var(--glass-2);border-radius:var(--r);animation:pulse 1.5s ease-in-out infinite"></div>
+            </div>
+
+            <div class="gold-rule mt16 mb16"></div>
+            <div class="caption mb8">Support</div>
+            <div style="font-size:.82rem">
+              <a href="https://wa.me/26776807549" target="_blank" style="color:var(--amber-2);display:block">+267 76 807 549</a>
+              <a href="https://wa.me/26778322911" target="_blank" style="color:var(--amber-2);display:block">+267 78 322 911</a>
+              <span class="text-dim" style="font-size:.75rem">Mon–Fri 08:00–17:00</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- MAIN -->
+      <main style="min-width:0">
+        <!-- Stats -->
+        <div class="g4 reveal" style="margin-bottom:20px">
+          <div class="kpi"><div class="kpi-label">Total applications</div><div class="kpi-value" id="statTotal">—</div></div>
+          <div class="kpi"><div class="kpi-label">Approved</div><div class="kpi-value" id="statApproved" style="color:var(--green)">—</div></div>
+          <div class="kpi"><div class="kpi-label">Pending</div><div class="kpi-value" id="statPending" style="color:var(--orange)">—</div></div>
+          <div class="kpi"><div class="kpi-label">Total borrowed</div><div class="kpi-value" id="statBorrowed">—</div></div>
+        </div>
+
+        <!-- Loans table -->
+        <div class="card reveal d1">
+          <div class="card-body">
+            <div class="flex f-between gap16 mb20 f-wrap">
+              <div>
+                <h2 class="h5 mb4">Loan applications</h2>
+                <p class="caption">All your requests — past and present.</p>
+              </div>
+              <a href="apply.html" class="btn btn-primary btn-sm btn-round">+ New application</a>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr>
+                  <th>Date</th><th>Amount</th><th>Package</th>
+                  <th>Total repay</th><th>Due date</th>
+                  <th>Purpose</th><th>Status</th>
+                </tr></thead>
+                <tbody id="loansBody">
+                  <tr><td colspan="7" style="text-align:center;padding:32px;color:var(--tx-4)">Loading…</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="caption mt16">Repayment window: 14, 21, or 30 days from approval date.</div>
+          </div>
+        </div>
+
+        <!-- Info row -->
+        <div class="g3 reveal d2" style="margin-top:16px">
+          <div class="kpi"><div class="kpi-label">Interest rate</div><div class="kpi-value">25–30%</div><div class="kpi-sub">Flat, shown upfront</div></div>
+          <div class="kpi"><div class="kpi-label">Max repayment</div><div class="kpi-value">30 days</div><div class="kpi-sub">Or choose 14 / 21</div></div>
+          <div class="kpi"><div class="kpi-label">Max loan</div><div class="kpi-value">P 5,000</div><div class="kpi-sub">Premium package</div></div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+</div>
+
+<a href="https://wa.me/26776807549" target="_blank" class="wa-float"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.37 5.07L2 22l5.07-1.35C8.45 21.52 10.19 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.66 0-3.22-.46-4.55-1.27l-.32-.19-3.37.9.91-3.33-.21-.34C3.46 14.95 3 13.52 3 12c0-4.97 4.03-9 9-9s9 4.03 9 9-4.03 9-9 9z"/></svg></a>
+<div id="toastHost"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script type="module" src="assets/js/app.js"></script>
+<style>
+@keyframes pulse { 0%,100% { opacity:.4; } 50% { opacity:.8; } }
+</style>
+</body>
+</html>

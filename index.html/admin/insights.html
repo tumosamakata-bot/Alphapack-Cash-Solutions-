@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Insights · Alpha Pack Admin</title>
+  <link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body data-page="admin_insights">
+<div class="bg-canvas"><div class="bg-gradient"></div><canvas id="particleCanvas"></canvas></div>
+<div id="pageLoader"><div class="loader-mark">AP</div><div class="loader-track"><div class="loader-bar"></div></div></div>
+<div class="admin-bar">⚠ <strong>ADMIN AREA</strong> — Authorised staff only.</div>
+<nav class="nav" style="top:36px"><div class="nav-wrap">
+  <a href="../index.html" class="nav-logo" target="_blank"><div class="nav-logo-mark" style="background:linear-gradient(135deg,#e85555,#c0392b)">AP</div><div class="nav-logo-text"><strong>Admin Panel</strong><span style="color:var(--red)">Alpha Pack</span></div></a>
+  <nav class="nav-center"><a href="dashboard.html" class="nav-link">Dashboard</a><a href="insights.html" class="nav-link">Insights</a><a href="settings.html" class="nav-link">Settings</a><a href="ads.html" class="nav-link">Ads</a><a href="users.html" class="nav-link">Users</a></nav>
+  <div class="nav-right"><button id="adminLogout" class="btn btn-ghost btn-sm">Log out</button></div>
+  <button class="nav-burger" id="navBurger"><span></span><span></span><span></span></button>
+</div></nav>
+<div class="nav-drawer" id="navDrawer" style="top:calc(36px + var(--nav-h))">
+  <a href="dashboard.html" class="nav-drawer-link">Dashboard</a><a href="insights.html" class="nav-drawer-link">Insights</a><a href="settings.html" class="nav-drawer-link">Settings</a><a href="ads.html" class="nav-drawer-link">Ads</a><a href="users.html" class="nav-drawer-link">Users</a>
+  <div class="drawer-sep"></div><div class="drawer-actions"><button class="btn btn-ghost btn-full" onclick="document.getElementById('adminLogout').click()">Log out</button></div>
+</div>
+
+<div class="page-body" style="padding-top:calc(36px + var(--nav-h) + 24px);padding-bottom:60px">
+  <div class="wrap">
+    <div class="eyebrow mb12 reveal">Analytics</div>
+    <h1 class="h3 mb32 reveal d1">Business <span class="grad-amber italic">insights</span></h1>
+
+    <div class="g4 reveal" style="grid-template-columns:repeat(3,1fr);margin-bottom:16px">
+      <div class="kpi"><div class="kpi-label">Total applications</div><div class="kpi-value" id="iTotal">—</div></div>
+      <div class="kpi"><div class="kpi-label">Total disbursed</div><div class="kpi-value" id="iDisbursed">—</div></div>
+      <div class="kpi"><div class="kpi-label">Interest earned</div><div class="kpi-value" id="iInterest" style="color:var(--amber-2)">—</div></div>
+    </div>
+    <div class="g4 reveal d1" style="grid-template-columns:repeat(3,1fr);margin-bottom:28px">
+      <div class="kpi"><div class="kpi-label">Pending review</div><div class="kpi-value" id="iPending" style="color:var(--orange)">—</div></div>
+      <div class="kpi"><div class="kpi-label">Approved</div><div class="kpi-value" id="iApproved" style="color:var(--green)">—</div></div>
+      <div class="kpi"><div class="kpi-label">Declined</div><div class="kpi-value" id="iDeclined" style="color:var(--red)">—</div></div>
+    </div>
+
+    <div class="g2 reveal d2" style="margin-bottom:20px">
+      <div class="card"><div class="card-body"><div class="fw-600 mb16">Package distribution</div><div class="chart-wrap"><canvas id="pkgChart"></canvas></div></div></div>
+      <div class="card"><div class="card-body"><div class="fw-600 mb16">Monthly disbursements (P)</div><div class="chart-wrap"><canvas id="trendChart"></canvas></div></div></div>
+    </div>
+    <p class="caption reveal">Profit = interest on approved loans. Repayment tracking is manual via WhatsApp/call.</p>
+  </div>
+</div>
+<div id="toastHost"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+<script type="module" src="../assets/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard · Alpha Pack</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23f0a832'/><text x='16' y='22' text-anchor='middle' font-size='16' font-weight='900' font-family='serif' fill='%23040810'>AP</text></svg>">
+  <link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body data-page="admin_dashboard">
+<div class="bg-canvas"><div class="bg-gradient"></div><canvas id="particleCanvas"></canvas></div>
+<div id="pageLoader"><div class="loader-mark">AP</div><div class="loader-track"><div class="loader-bar"></div></div></div>
+
+<div class="admin-bar">⚠ <strong>ADMIN AREA</strong> — Authorised staff only. All actions are logged and audited.</div>
+
+<nav class="nav" style="top:36px">
+  <div class="nav-wrap">
+    <a href="../index.html" class="nav-logo" target="_blank">
+      <div class="nav-logo-mark" style="background:linear-gradient(135deg,#e85555,#c0392b);box-shadow:0 0 20px rgba(232,85,85,.4)">AP</div>
+      <div class="nav-logo-text"><strong>Admin Panel</strong><span style="color:var(--red)">Alpha Pack</span></div>
+    </a>
+    <nav class="nav-center">
+      <a href="dashboard.html" class="nav-link">Dashboard</a>
+      <a href="insights.html"  class="nav-link">Insights</a>
+      <a href="settings.html"  class="nav-link">Settings</a>
+      <a href="ads.html"       class="nav-link">Ads</a>
+      <a href="users.html"     class="nav-link">Users</a>
+    </nav>
+    <div class="nav-right">
+      <a href="../index.html" target="_blank" class="btn btn-ghost btn-sm">View site ↗</a>
+      <button id="adminLogout" class="btn btn-ghost btn-sm">Log out</button>
+    </div>
+    <button class="nav-burger" id="navBurger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="nav-drawer" id="navDrawer" style="top:calc(36px + var(--nav-h))">
+  <a href="dashboard.html" class="nav-drawer-link">Dashboard</a>
+  <a href="insights.html"  class="nav-drawer-link">Insights</a>
+  <a href="settings.html"  class="nav-drawer-link">Settings</a>
+  <a href="ads.html"       class="nav-drawer-link">Ads</a>
+  <a href="users.html"     class="nav-drawer-link">Users</a>
+  <div class="drawer-sep"></div>
+  <div class="drawer-actions"><button class="btn btn-ghost btn-full" onclick="document.getElementById('adminLogout').click()">Log out</button></div>
+</div>
+
+<div class="page-body" style="padding-top:calc(36px + var(--nav-h) + 24px);padding-bottom:60px">
+  <div class="wrap">
+
+    <!-- KPIs -->
+    <div class="g4 reveal" style="margin-bottom:20px;grid-template-columns:repeat(5,1fr)">
+      <div class="kpi"><div class="kpi-label">Total loans</div><div class="kpi-value" id="aTotal">—</div></div>
+      <div class="kpi"><div class="kpi-label">Pending</div><div class="kpi-value" id="aPending" style="color:var(--orange)">—</div></div>
+      <div class="kpi"><div class="kpi-label">Approved</div><div class="kpi-value" id="aApproved" style="color:var(--green)">—</div></div>
+      <div class="kpi"><div class="kpi-label">Disbursed</div><div class="kpi-value" id="aDisbursed">—</div></div>
+      <div class="kpi"><div class="kpi-label">Interest earned</div><div class="kpi-value" id="aInterest" style="color:var(--amber-2)">—</div></div>
+    </div>
+
+    <!-- KYC Queue -->
+    <div class="card reveal mb20">
+      <div class="card-body">
+        <div class="flex f-between gap12 mb16 f-wrap">
+          <div><h2 style="font-size:1rem;font-weight:700;margin-bottom:4px">📸 KYC Verification Queue</h2><p class="caption">Review student ID submissions</p></div>
+          <span class="badge badge-orange">Requires action</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Name</th><th>Email</th><th>Institution</th><th>Submitted</th><th style="text-align:right">Actions</th></tr></thead>
+            <tbody id="kycTableBody"><tr><td colspan="5" style="text-align:center;padding:28px;color:var(--tx-4)">Loading…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loan Queue -->
+    <div class="card reveal d1">
+      <div class="card-body">
+        <div class="flex f-between gap12 mb16 f-wrap">
+          <div><h2 style="font-size:1rem;font-weight:700;margin-bottom:4px">💰 Loan Applications Queue</h2><p class="caption">Review and approve pending applications</p></div>
+          <span class="badge badge-orange">Requires action</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Date</th><th>Applicant</th><th>Phone</th><th>Amount</th><th>Package</th><th>Purpose</th><th style="text-align:right">Actions</th></tr></thead>
+            <tbody id="loanTableBody"><tr><td colspan="7" style="text-align:center;padding:28px;color:var(--tx-4)">Loading…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Detail Modal -->
+<div class="modal-bg" id="detailModal">
+  <div class="modal">
+    <div class="modal-header"><span class="fw-600">Details</span><button id="closeModal" class="btn btn-ghost btn-sm btn-icon">✕</button></div>
+    <div class="modal-body" id="modalContent"></div>
+  </div>
+</div>
+
+<div id="toastHost"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script type="module" src="../assets/js/app.js"></script>
+</body>
+</html>

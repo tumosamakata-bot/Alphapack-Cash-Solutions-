@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Provision · Alpha Pack</title>
+  <link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body data-page="admin_provision">
+<div class="bg-canvas"><div class="bg-gradient"></div><canvas id="particleCanvas"></canvas></div>
+<div id="pageLoader"><div class="loader-mark">AP</div><div class="loader-track"><div class="loader-bar"></div></div></div>
+<div class="admin-bar" style="background:rgba(232,85,85,.15);border-bottom-color:rgba(232,85,85,.4)">🚨 <strong>DELETE THIS FILE IMMEDIATELY AFTER USE.</strong> Never leave provision.html on a live server.</div>
+<nav class="nav" style="top:36px"><div class="nav-wrap">
+  <div class="nav-logo"><div class="nav-logo-mark" style="background:linear-gradient(135deg,#e85555,#c0392b)">⚠</div><div class="nav-logo-text"><strong>One-time Setup</strong><span style="color:var(--red)">Delete after use</span></div></div>
+</div></nav>
+<div class="page-body pt-nav" style="min-height:100vh;display:flex;align-items:center;padding-top:calc(36px + var(--nav-h))">
+  <div class="wrap" style="max-width:480px;width:100%;padding:40px 0 80px">
+    <div class="card reveal" style="border-color:rgba(232,85,85,.3)">
+      <div class="card-body-xl">
+        <div class="flex f-between gap12 mb20">
+          <div><h1 class="h4 mb4">Create admin account</h1><p class="caption">Sets up the master admin for Alpha Pack. Run once, then delete this file.</p></div>
+          <span class="badge badge-red shrink-0">🔒 One-time</span>
+        </div>
+        <div class="gold-rule mb24"></div>
+        <form id="provisionForm" novalidate style="display:flex;flex-direction:column;gap:18px">
+          <div class="form-field"><label class="form-label">Admin email <span class="req">*</span></label><input class="input" name="email" type="email" required placeholder="admin@yourdomain.com"></div>
+          <div class="form-field"><label class="form-label">Password (10+ chars) <span class="req">*</span></label><div style="position:relative"><input class="input" name="password" type="password" required minlength="10" placeholder="Strong password"><button type="button" class="pw-eye">👁</button></div></div>
+          <div class="form-field"><label class="form-label">Confirm password <span class="req">*</span></label><div style="position:relative"><input class="input" name="confirm" type="password" required placeholder="Repeat password"><button type="button" class="pw-eye">👁</button></div></div>
+          <button type="submit" class="btn btn-full btn-xl btn-round" style="background:linear-gradient(135deg,#e85555,#c0392b);color:#fff;border:none;box-shadow:0 4px 20px rgba(232,85,85,.35);font-weight:700">Create admin account</button>
+          <p class="caption text-center">After submitting → go to <a href="login.html" style="color:var(--amber-2)">admin/login.html</a> — then <strong>delete this file from GitHub</strong>.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="toastHost"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script type="module" src="../assets/js/app.js"></script>
+</body>
+</html>

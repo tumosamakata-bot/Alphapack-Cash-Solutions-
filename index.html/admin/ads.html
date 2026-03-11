@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ads · Alpha Pack Admin</title>
+  <link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body data-page="admin_ads">
+<div class="bg-canvas"><div class="bg-gradient"></div><canvas id="particleCanvas"></canvas></div>
+<div id="pageLoader"><div class="loader-mark">AP</div><div class="loader-track"><div class="loader-bar"></div></div></div>
+<div class="admin-bar">⚠ <strong>ADMIN AREA</strong> — Authorised staff only.</div>
+<nav class="nav" style="top:36px"><div class="nav-wrap">
+  <a href="../index.html" class="nav-logo" target="_blank"><div class="nav-logo-mark" style="background:linear-gradient(135deg,#e85555,#c0392b)">AP</div><div class="nav-logo-text"><strong>Admin Panel</strong><span style="color:var(--red)">Alpha Pack</span></div></a>
+  <nav class="nav-center"><a href="dashboard.html" class="nav-link">Dashboard</a><a href="insights.html" class="nav-link">Insights</a><a href="settings.html" class="nav-link">Settings</a><a href="ads.html" class="nav-link">Ads</a><a href="users.html" class="nav-link">Users</a></nav>
+  <div class="nav-right"><button id="adminLogout" class="btn btn-ghost btn-sm">Log out</button></div>
+  <button class="nav-burger" id="navBurger"><span></span><span></span><span></span></button>
+</div></nav>
+<div class="nav-drawer" id="navDrawer" style="top:calc(36px + var(--nav-h))">
+  <a href="dashboard.html" class="nav-drawer-link">Dashboard</a><a href="insights.html" class="nav-drawer-link">Insights</a><a href="settings.html" class="nav-drawer-link">Settings</a><a href="ads.html" class="nav-drawer-link">Ads</a><a href="users.html" class="nav-drawer-link">Users</a>
+  <div class="drawer-sep"></div><div class="drawer-actions"><button class="btn btn-ghost btn-full" onclick="document.getElementById('adminLogout').click()">Log out</button></div>
+</div>
+
+<div class="page-body" style="padding-top:calc(36px + var(--nav-h) + 24px);padding-bottom:60px">
+  <div class="wrap" style="max-width:800px">
+    <div class="eyebrow mb12 reveal">Revenue</div>
+    <h1 class="h3 mb8 reveal d1">Manage <span class="grad-amber italic">advertisements</span></h1>
+    <p class="lead mb32 reveal d2" style="font-size:.95rem">Publish banners to the homepage. Charge advertisers P350/month per slot. Activate, pause, or delete at any time.</p>
+
+    <!-- Current ads -->
+    <div class="card reveal mb24">
+      <div class="card-body">
+        <div class="flex f-between gap12 mb20"><div class="fw-600">Active & paused ads</div><span class="badge badge-amber">Homepage banners</span></div>
+        <div id="adsList"><div class="text-center caption" style="padding:32px;color:var(--tx-4)">Loading…</div></div>
+      </div>
+    </div>
+
+    <!-- Create ad -->
+    <div class="card reveal d1">
+      <div class="card-body-xl">
+        <div class="fw-600 mb4">Create new ad</div>
+        <p class="caption mb24">Complete all fields. Activated ads appear immediately on the homepage.</p>
+        <form id="createAdForm" novalidate style="display:flex;flex-direction:column;gap:18px">
+          <div class="form-field"><label class="form-label">Ad headline <span class="req">*</span></label><input class="input" name="title" required placeholder="e.g. Affordable Student Accommodation in Gaborone"></div>
+          <div class="form-field"><label class="form-label">Description <span class="req">*</span></label><textarea class="input" name="description" required rows="3" placeholder="What the advertiser offers — keep it compelling and concise."></textarea></div>
+          <div class="form-grid-2">
+            <div class="form-field"><label class="form-label">Button text</label><input class="input" name="cta_text" placeholder="e.g. Book a room, Call now, Learn more"></div>
+            <div class="form-field"><label class="form-label">Button URL</label><input class="input" name="cta_url" type="url" placeholder="https://advertiser-site.co.bw"></div>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-field"><label class="form-label">Price label</label><input class="input" name="price_label" placeholder="e.g. From P800/month"></div>
+            <div class="form-field"><label class="form-label">Price period</label><input class="input" name="price_period" placeholder="e.g. per month, per semester"></div>
+          </div>
+          <div class="form-field"><label class="form-label">Advertiser phone (optional)</label><input class="input" name="phone" type="tel" placeholder="e.g. 267XXXXXXXX"></div>
+          <button type="submit" class="btn btn-primary btn-round">Publish ad →</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="card mt20 reveal d2" style="border-color:var(--bdr);background:rgba(240,168,50,.04)">
+      <div class="card-body"><div class="fw-600 mb8">💡 Pricing guide</div><div class="caption">Recommended: <strong style="color:var(--tx-2)">P350 per slot per month.</strong> You can run multiple ads at once. Collect payment directly — ad management is manual through this panel.</div></div>
+    </div>
+  </div>
+</div>
+<div id="toastHost"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script type="module" src="../assets/js/app.js"></script>
+</body>
+</html>
