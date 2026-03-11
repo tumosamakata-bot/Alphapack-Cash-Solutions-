@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Alpha Pack Cash Solutions — Botswana's student lending partner. Fast, transparent loans at 25–30% interest. Verified students only.">
+  <meta name="theme-color" content="#040810">
+  <meta property="og:title" content="Alpha Pack Cash Solutions">
+  <meta property="og:description" content="Student loans in Botswana. Clear terms. Real money.">
+  <title>Alpha Pack Cash Solutions · Student Loans Botswana</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23f0a832'/><text x='16' y='22' text-anchor='middle' font-size='16' font-weight='900' font-family='serif' fill='%23040810'>AP</text></svg>">
+  <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body data-page="home">
+
+<div class="bg-canvas">
+  <div class="bg-gradient"></div>
+  <canvas id="particleCanvas"></canvas>
+</div>
+
+<div id="pageLoader"><div class="loader-mark">AP</div><div class="loader-track"><div class="loader-bar"></div></div><div class="loader-label">Alpha Pack</div></div>
+
+<!-- TICKER -->
+<div class="ticker" style="margin-top:0;padding-top:var(--nav-h)">
+  <div class="ticker-inner" id="tickerInner">
+    <span class="ticker-item"><span class="ticker-dot"></span>Student loans — 25–30% interest, shown upfront. No hidden fees.</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Repay in 14, 21, or 30 days — you choose</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Botswana's most transparent student lender</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>WhatsApp support: 26776807549 / 26778322911</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Mon–Fri  08:00–17:00 · Verified students only</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Packages from P100 to P5,000 · Pula currency</span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav" id="mainNav">
+  <div class="nav-wrap">
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-mark">AP</div>
+      <div class="nav-logo-text"><strong>Alpha Pack</strong><span>Cash Solutions</span></div>
+    </a>
+    <nav class="nav-center">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="faq.html" class="nav-link">FAQ</a>
+      <a href="terms.html" class="nav-link">Terms</a>
+      <a href="privacy.html" class="nav-link">Privacy</a>
+    </nav>
+    <div class="nav-right" id="navAuthArea">
+      <a href="login.html" class="btn btn-ghost btn-sm">Log in</a>
+      <a href="register.html" class="btn btn-primary btn-sm btn-round">Get started →</a>
+    </div>
+    <button class="nav-burger" id="navBurger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="nav-drawer" id="navDrawer">
+  <a href="index.html" class="nav-drawer-link">Home</a>
+  <a href="faq.html" class="nav-drawer-link">FAQ</a>
+  <a href="terms.html" class="nav-drawer-link">Terms</a>
+  <a href="privacy.html" class="nav-drawer-link">Privacy</a>
+  <div class="drawer-sep"></div>
+  <div class="drawer-actions">
+    <a href="login.html" class="btn btn-ghost btn-full">Log in</a>
+    <a href="register.html" class="btn btn-primary btn-full">Create account</a>
+  </div>
+</div>
+
+<div class="page-body">
+
+  <!-- ══ HERO ══════════════════════════════════════════════ -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div class="hero-content">
+          <div class="hero-badge reveal"><span class="pulse"></span>Trusted by Botswana students</div>
+          <h1 class="h1 hero-title reveal d1">
+            Money when<br>
+            <span class="grad-amber italic">students</span><br>
+            need it most.
+          </h1>
+          <p class="lead hero-subtitle reveal d2">
+            Alpha Pack Cash Solutions offers fast, transparent student loans in Botswana. Know exactly what you'll repay — before you sign. No jargon. No surprises.
+          </p>
+          <div class="hero-ctas reveal d3">
+            <a href="register.html" class="btn btn-primary btn-xl btn-round">Apply in 3 minutes →</a>
+            <button id="btnHowItWorks" class="btn btn-outline btn-xl btn-round">How it works</button>
+          </div>
+          <div class="hero-trust reveal d4">
+            <div class="hero-trust-item"><span class="hero-trust-icon">✓</span><span>25–30% flat interest, shown upfront</span></div>
+            <div class="hero-trust-item"><span class="hero-trust-icon">✓</span><span>Students only — verified ID required</span></div>
+            <div class="hero-trust-item"><span class="hero-trust-icon">✓</span><span>Pula-denominated, Botswana-based</span></div>
+          </div>
+        </div>
+
+        <!-- Loan Calculator Card -->
+        <div class="reveal d2">
+          <div class="hero-card">
+            <div class="eyebrow mb16">Live loan calculator</div>
+            <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px">
+              <select id="calcPkg" class="input" style="margin-bottom:4px">
+                <option value="starter">🚀 Starter — P100 to P500</option>
+                <option value="boost">📚 Boost — P500 to P1,000</option>
+                <option value="advance">🎓 Advance — P1,000 to P2,000</option>
+                <option value="premium">💎 Premium — P2,000 to P5,000</option>
+              </select>
+              <div>
+                <label class="form-label mb8" for="calcAmount">Amount (Pula)</label>
+                <div class="input-wrap">
+                  <span class="input-icon" style="font-family:var(--display);font-size:1rem">P</span>
+                  <input id="calcAmount" type="number" class="input" min="100" max="500" value="300" step="50">
+                </div>
+              </div>
+            </div>
+            <div class="gold-rule mb16"></div>
+            <div id="calcResult"><!-- filled by JS --></div>
+            <div class="gold-rule mt16 mb20"></div>
+            <a href="register.html" class="btn btn-primary btn-full btn-round">Start application →</a>
+            <div style="text-align:center;margin-top:12px">
+              <a href="login.html" class="caption" style="color:var(--tx-3)">Already have an account? Log in</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ PACKAGES ═══════════════════════════════════════════ -->
+  <section class="section-sm" style="border-top:1px solid var(--bdr-white);border-bottom:1px solid var(--bdr-white);background:rgba(240,168,50,.025)">
+    <div class="wrap">
+      <div class="text-center mb32 reveal">
+        <div class="eyebrow justify-content:center;display:inline-flex mb12">Our packages</div>
+        <h2 class="h3">Choose the amount that fits <span class="grad-amber italic">your situation.</span></h2>
+      </div>
+      <div class="g4 reveal d1">
+        <div class="feature-card text-center">
+          <div style="font-size:2rem;margin-bottom:12px">🚀</div>
+          <div class="fw-700 mb4">Starter</div>
+          <div style="font-family:var(--display);font-size:1.35rem;color:var(--amber-2);margin-bottom:8px">P100 – P500</div>
+          <div class="caption">Quick everyday needs. Transport, food, stationery.</div>
+        </div>
+        <div class="feature-card text-center">
+          <div style="font-size:2rem;margin-bottom:12px">📚</div>
+          <div class="fw-700 mb4">Boost</div>
+          <div style="font-family:var(--display);font-size:1.35rem;color:var(--amber-2);margin-bottom:8px">P500 – P1,000</div>
+          <div class="caption">Bigger student expenses. Projects, materials, fees.</div>
+        </div>
+        <div class="feature-card text-center">
+          <div style="font-size:2rem;margin-bottom:12px">🎓</div>
+          <div class="fw-700 mb4">Advance</div>
+          <div style="font-family:var(--display);font-size:1.35rem;color:var(--amber-2);margin-bottom:8px">P1,000 – P2,000</div>
+          <div class="caption">Major academic support. Accommodation, supplies.</div>
+        </div>
+        <div class="feature-card text-center">
+          <div style="font-size:2rem;margin-bottom:12px">💎</div>
+          <div class="fw-700 mb4">Premium</div>
+          <div style="font-family:var(--display);font-size:1.35rem;color:var(--amber-2);margin-bottom:8px">P2,000 – P5,000</div>
+          <div class="caption">Full semester coverage. Qualifying students only.</div>
+        </div>
+      </div>
+      <div class="text-center mt24 reveal">
+        <span class="badge badge-amber">All packages: 25–30% flat interest · 14, 21, or 30 day repayment · Pula (BWP)</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ AD SLOT ═════════════════════════════════════════════ -->
+  <div class="section-sm">
+    <div class="wrap">
+      <!-- Default promo — replaced by DB ads when present -->
+      <div id="adSlot">
+        <div class="ad-slot reveal">
+          <div class="ad-label">✦ Promote your business</div>
+          <div class="ad-badge"><span class="badge badge-amber">Advertise here</span></div>
+          <h3 style="font-family:var(--display);font-size:clamp(1.5rem,3vw,2.2rem);font-weight:700;margin-bottom:12px;position:relative;z-index:1">Reach thousands of<br>verified Botswana students.</h3>
+          <p style="color:var(--tx-2);max-width:500px;margin-bottom:24px;position:relative;z-index:1;font-size:.9rem;line-height:1.7">Your business appears directly in front of active student borrowers. Homepage banner slots are limited. Contact us to secure your spot.</p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;position:relative;z-index:1">
+            <a href="tel:26776807549" class="btn btn-primary">📞 Call to advertise</a>
+            <a href="https://wa.me/26776807549?text=Hi+Alpha+Pack%2C+I'd+like+to+advertise+on+your+site." target="_blank" class="btn btn-wa">💬 WhatsApp us</a>
+          </div>
+          <div style="position:absolute;top:28px;right:40px;text-align:right;z-index:1">
+            <div style="font-family:var(--display);font-size:2.5rem;font-weight:300;color:var(--amber-2)">P350</div>
+            <div style="font-size:.78rem;color:var(--tx-3)">per month / slot</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ HOW IT WORKS ═══════════════════════════════════════ -->
+  <section class="section" id="howItWorks">
+    <div class="wrap">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start">
+        <div>
+          <div class="eyebrow mb16 reveal">Simple process</div>
+          <h2 class="h2 mb16 reveal d1">Three steps to <span class="grad-amber italic">your money.</span></h2>
+          <p class="lead mb32 reveal d2">We've removed every unnecessary step. If you're a student in Botswana, this is the most straightforward loan you'll ever apply for.</p>
+          <div class="card reveal d3">
+            <div class="card-body">
+              <div class="step-row"><div class="step-num">1</div><div><div class="step-title">Create your student account</div><div class="step-desc">Register with your institution details. Takes under 2 minutes. Students only — this is non-negotiable.</div></div></div>
+              <div class="step-row"><div class="step-num">2</div><div><div class="step-title">Verify your Student ID</div><div class="step-desc">Upload a clear photo of your Student ID (front & back). Our team reviews within 1–2 business days. This protects you and every borrower in the system.</div></div></div>
+              <div class="step-row"><div class="step-num">3</div><div><div class="step-title">Apply, track, and repay</div><div class="step-desc">Choose your amount and repayment window. Submit. Your dashboard shows your status in real-time — no phone tag, no guessing.</div></div></div>
+            </div>
+          </div>
+          <div class="flex gap12 mt24 f-wrap reveal d4">
+            <a href="register.html" class="btn btn-primary btn-round">Get started now →</a>
+            <a href="faq.html" class="btn btn-ghost btn-round">Read our FAQ</a>
+          </div>
+        </div>
+
+        <div>
+          <div class="eyebrow mb16 reveal">Why students choose us</div>
+          <h2 class="h2 mb16 reveal d1">Built around <span class="grad-amber italic">transparency.</span></h2>
+          <p class="lead mb32 reveal d2">We tell you the full repayment amount before you click Submit. Most lenders don't. We do — because we believe informed borrowers make better decisions.</p>
+          <div class="g-auto reveal d3">
+            <div class="feature-card"><div class="feature-icon">🔍</div><div class="feature-title">No hidden costs</div><div class="feature-body">Total repayable is shown upfront. Interest calculated once. You know exactly what you owe from day one.</div></div>
+            <div class="feature-card"><div class="feature-icon">⚡</div><div class="feature-title">Fast decisions</div><div class="feature-body">Applications reviewed the same business day. No waiting weeks. No vague timelines.</div></div>
+            <div class="feature-card"><div class="feature-icon">📱</div><div class="feature-title">Track in real-time</div><div class="feature-body">Your dashboard shows pending, approved, and declined status the moment admin acts.</div></div>
+            <div class="feature-card"><div class="feature-icon">🛡</div><div class="feature-title">ID-verified only</div><div class="feature-body">Mandatory Student ID check keeps the system honest. Protects serious borrowers from fraud risk.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ INTEREST EXAMPLES ════════════════════════════════════ -->
+  <section class="section-sm" style="border-top:1px solid var(--bdr-white);border-bottom:1px solid var(--bdr-white);background:rgba(240,168,50,.02)">
+    <div class="wrap">
+      <div class="text-center mb40 reveal">
+        <div class="eyebrow" style="justify-content:center;display:inline-flex;margin-bottom:12px">Worked examples</div>
+        <h2 class="h3 mb12">This is what you'll actually pay.</h2>
+        <p class="lead" style="max-width:460px;margin:0 auto">Interest at 25–30%, applied once, clearly shown before you commit.</p>
+      </div>
+      <div class="g3 reveal d1">
+        <div class="card text-center" style="border-color:var(--bdr)">
+          <div class="card-body">
+            <div class="caption mb8">Example · Starter</div>
+            <div style="font-family:var(--display);font-size:2.4rem;font-weight:400;color:var(--amber-2);line-height:1;margin-bottom:4px">P 300</div>
+            <div class="caption mb16">Borrow</div>
+            <div class="gold-rule mb16"></div>
+            <div style="font-size:.875rem;display:flex;justify-content:space-between;margin-bottom:8px"><span class="text-muted">Interest (30%)</span><span>P 90</span></div>
+            <div style="font-size:.875rem;display:flex;justify-content:space-between;font-weight:700"><span>Total repay</span><span class="text-amber">P 390</span></div>
+          </div>
+        </div>
+        <div class="card text-center" style="border-color:var(--bdr-2);transform:scale(1.03)">
+          <div class="card-body">
+            <div class="caption mb8">Example · Boost</div>
+            <div style="font-family:var(--display);font-size:2.4rem;font-weight:400;color:var(--amber-2);line-height:1;margin-bottom:4px">P 750</div>
+            <div class="caption mb16">Borrow</div>
+            <div class="gold-rule mb16"></div>
+            <div style="font-size:.875rem;display:flex;justify-content:space-between;margin-bottom:8px"><span class="text-muted">Interest (30%)</span><span>P 225</span></div>
+            <div style="font-size:.875rem;display:flex;justify-content:space-between;font-weight:700"><span>Total repay</span><span class="text-amber">P 975</span></div>
+          </div>
+        </div>
+        <div class="card text-center" style="border-color:var(--bdr)">
+          <div class="card-body">
+            <div class="caption mb8">Example · Advance</div>
+            <div style="font-family:var(--display);font-size:2.4rem;font-weight:400;color:var(--amber-2);line-height:1;margin-bottom:4px">P 1,500</div>
+            <div class="caption mb16">Borrow</div>
+            <div class="gold-rule mb16"></div>
+            <div style="font-size:.875rem;display:flex;justify-content:space-between;margin-bottom:8px"><span class="text-muted">Interest (25%)</span><span>P 375</span></div>
+            <div style="font-size:.875rem;display:flex;justify-content:space-between;font-weight:700"><span>Total repay</span><span class="text-amber">P 1,875</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt24 reveal"><p class="caption">Loans above P1,000 receive the lower 25% rate. Under P1,000 = 30%. Always calculated once, never compounded.</p></div>
+    </div>
+  </section>
+
+  <!-- ══ SUPPORT CTA ══════════════════════════════════════════ -->
+  <section class="section">
+    <div class="wrap">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start">
+        <div class="reveal">
+          <div class="eyebrow mb16">We answer</div>
+          <h2 class="h3 mb12">Real people. Real help.<br><span class="grad-amber italic">Real fast.</span></h2>
+          <p class="lead mb24">Our team is reachable on WhatsApp and phone — Monday to Friday. No bots. No automated replies. A real person at Alpha Pack.</p>
+          <div class="card reveal d1" style="border-color:var(--bdr)">
+            <div class="card-body">
+              <div class="flex f-between mb16">
+                <div><div class="fw-600 mb4">💬 WhatsApp & Call</div><div class="caption">Mon–Fri · 08:00–17:00</div></div>
+                <div class="text-right">
+                  <a href="tel:26776807549" class="block fw-600" style="color:var(--amber-2);font-size:1rem">+267 76 807 549</a>
+                  <a href="tel:26778322911" class="block fw-600" style="color:var(--amber-2);font-size:1rem">+267 78 322 911</a>
+                </div>
+              </div>
+              <div class="gold-rule mb16"></div>
+              <div class="flex gap12 f-wrap">
+                <a href="https://wa.me/26776807549?text=Hi+Alpha+Pack!+I+have+a+question+about+a+student+loan." target="_blank" class="btn btn-wa btn-full">💬 WhatsApp us now</a>
+              </div>
+              <div class="caption mt12">Have your Student ID ready. We may ask for your account details to assist you faster.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal d1">
+          <div class="eyebrow mb16">Ready to apply?</div>
+          <h2 class="h3 mb12">If you're enrolled,<br><span class="grad-amber italic">you qualify.</span></h2>
+          <p class="lead mb24">Create your account in under 2 minutes. We've designed every step to feel effortless — because you have enough on your plate as a student.</p>
+          <div class="card" style="border-color:var(--bdr)">
+            <div class="card-body flex f-col gap12">
+              <a href="register.html" class="btn btn-primary btn-full btn-round btn-lg">👤 Create student account</a>
+              <a href="login.html"    class="btn btn-ghost btn-full btn-round">🔑 Already registered? Log in</a>
+              <a href="verify.html"   class="btn btn-outline btn-full btn-round">📸 Verify your Student ID</a>
+              <div class="gold-rule"></div>
+              <p class="caption text-center">Alpha Pack serves currently enrolled students only. Non-students are not eligible in this version.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FAQ PREVIEW ═════════════════════════════════════════ -->
+  <section class="section-sm" style="border-top:1px solid var(--bdr-white)">
+    <div class="wrap wrap-md" style="max-width:720px">
+      <div class="text-center mb32 reveal"><div class="eyebrow" style="justify-content:center;display:inline-flex;margin-bottom:12px">FAQ</div><h2 class="h3">Questions students ask us <span class="grad-amber italic">most.</span></h2></div>
+      <div style="display:flex;flex-direction:column;gap:10px" class="reveal d1">
+        <div class="faq-item"><div class="faq-q">Who can apply? <span class="faq-arrow">▾</span></div><div class="faq-a">Currently enrolled students at recognised institutions in Botswana. You must be able to produce a valid Student ID. Non-students are not eligible at this stage.</div></div>
+        <div class="faq-item"><div class="faq-q">How much can I borrow? <span class="faq-arrow">▾</span></div><div class="faq-a">Between P100 and P5,000 depending on your package: Starter (P100–P500), Boost (P500–P1,000), Advance (P1,000–P2,000), Premium (P2,000–P5,000). Premium may require additional documentation.</div></div>
+        <div class="faq-item"><div class="faq-q">What is the exact interest rate? <span class="faq-arrow">▾</span></div><div class="faq-a">25% for loans above P1,000. 30% for loans P1,000 and below. This is flat — calculated once on the principal. Total repayable is shown to you before you submit.</div></div>
+        <div class="faq-item"><div class="faq-q">Can I apply without logging in? <span class="faq-arrow">▾</span></div><div class="faq-a">No. You must register and verify your Student ID before any application is accepted. This protects you, us, and every other borrower on the platform.</div></div>
+        <div class="faq-item"><div class="faq-q">How long does approval take? <span class="faq-arrow">▾</span></div><div class="faq-a">Same business day in most cases. ID verification takes 1–2 business days. Loan review is typically completed the same day it is submitted.</div></div>
+      </div>
+      <div class="text-center mt24 reveal"><a href="faq.html" class="btn btn-outline btn-round">All FAQs →</a></div>
+    </div>
+  </section>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="g4 reveal" style="gap:40px">
+      <div>
+        <div class="footer-brand">Alpha Pack</div>
+        <div class="footer-desc">Alpha Pack Cash Solutions — Botswana's student lending partner. Transparent rates. Real support. Verified borrowers.</div>
+        <div style="display:flex;gap:8px;margin-top:20px;flex-wrap:wrap">
+          <span class="badge badge-amber">25–30% flat</span>
+          <span class="badge badge-muted">Botswana</span>
+          <span class="badge badge-muted">Pula (BWP)</span>
+        </div>
+      </div>
+      <div>
+        <div class="footer-head">Platform</div>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="register.html">Create account</a></li>
+          <li><a href="login.html">Log in</a></li>
+          <li><a href="dashboard.html">Dashboard</a></li>
+          <li><a href="apply.html">Apply</a></li>
+          <li><a href="verify.html">Verify ID</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-head">Company</div>
+        <ul class="footer-links">
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="terms.html">Terms</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-head">Contact</div>
+        <div class="footer-contact">
+          <a href="https://wa.me/26776807549" target="_blank">+267 76 807 549</a><br>
+          <a href="https://wa.me/26778322911" target="_blank">+267 78 322 911</a><br>
+          <span style="color:var(--tx-4);font-size:.79rem">Mon–Fri  08:00–17:00</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© <span class="ap-year"></span> Alpha Pack Cash Solutions. All rights reserved.</div>
+      <div style="display:flex;gap:20px"><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a></div>
+    </div>
+  </div>
+</footer>
+
+<!-- WhatsApp float -->
+<a href="https://wa.me/26776807549?text=Hi+Alpha+Pack!+I+have+a+question+about+a+student+loan." target="_blank" rel="noopener" class="wa-float" aria-label="WhatsApp us">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.37 5.07L2 22l5.07-1.35C8.45 21.52 10.19 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.66 0-3.22-.46-4.55-1.27l-.32-.19-3.37.9.91-3.33-.21-.34C3.46 14.95 3 13.52 3 12c0-4.97 4.03-9 9-9s9 4.03 9 9-4.03 9-9 9z"/></svg>
+</a>
+
+<div id="toastHost"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script type="module" src="assets/js/app.js"></script>
+</body>
+</html>

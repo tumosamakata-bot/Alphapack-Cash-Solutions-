@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apply · Alpha Pack</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23f0a832'/><text x='16' y='22' text-anchor='middle' font-size='16' font-weight='900' font-family='serif' fill='%23040810'>AP</text></svg>">
+  <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body data-page="apply">
+<div class="bg-canvas"><div class="bg-gradient"></div><canvas id="particleCanvas"></canvas></div>
+<div id="pageLoader"><div class="loader-mark">AP</div><div class="loader-track"><div class="loader-bar"></div></div></div>
+<nav class="nav"><div class="nav-wrap">
+  <a href="index.html" class="nav-logo"><div class="nav-logo-mark">AP</div><div class="nav-logo-text"><strong>Alpha Pack</strong><span>Cash Solutions</span></div></a>
+  <nav class="nav-center"><a href="dashboard.html" class="nav-link">Dashboard</a><a href="apply.html" class="nav-link">Apply</a><a href="verify.html" class="nav-link">Verify ID</a></nav>
+  <div class="nav-right"><button id="logoutBtn" class="btn btn-ghost btn-sm">Log out</button></div>
+  <button class="nav-burger" id="navBurger"><span></span><span></span><span></span></button>
+</div></nav>
+<div class="nav-drawer" id="navDrawer">
+  <a href="dashboard.html" class="nav-drawer-link">Dashboard</a><a href="apply.html" class="nav-drawer-link">Apply</a><a href="verify.html" class="nav-drawer-link">Verify ID</a>
+  <div class="drawer-sep"></div><div class="drawer-actions"><button class="btn btn-ghost btn-full" onclick="document.getElementById('logoutBtn').click()">Log out</button></div>
+</div>
+
+<div class="page-body pt-nav section">
+  <div class="wrap" style="max-width:900px">
+    <div style="display:grid;grid-template-columns:1fr 320px;gap:28px;align-items:start">
+      <div class="card amber-border reveal">
+        <div class="card-body-xl">
+          <div class="flex f-between gap12 mb20 f-wrap">
+            <div><h1 class="h4 mb4">Loan application</h1><p class="caption">Verified students only. Total repayable shown before you submit.</p></div>
+            <span class="badge badge-amber shrink-0">🛡 KYC verified</span>
+          </div>
+          <div class="gold-rule mb24"></div>
+          <form id="applyForm" novalidate style="display:flex;flex-direction:column;gap:20px">
+            <div class="form-field"><label class="form-label">Loan package <span class="req">*</span></label><select id="applyPkg" name="package" class="input"><option value="">Select…</option></select></div>
+            <div class="form-field"><label class="form-label">Amount (Pula) <span class="req">*</span></label><div class="input-wrap"><span class="input-icon" style="font-family:var(--display);font-size:1rem">P</span><input id="applyAmount" name="amount" type="number" class="input" min="100" max="5000" value="300" step="50" required></div></div>
+            <div class="form-field"><label class="form-label">Repayment window <span class="req">*</span></label><select id="applyRepayment" name="repayment" class="input"></select></div>
+            <div class="form-field"><label class="form-label">Purpose of loan <span class="req">*</span></label><textarea name="purpose" class="input" minlength="10" required placeholder="Be specific — e.g. transport fees for campus, groceries for the week, project printing costs…" rows="3"></textarea><div class="form-hint">Specific purposes are approved faster.</div></div>
+            <div class="form-field"><label class="form-label">Contact phone <span class="req">*</span></label><div class="input-wrap"><span class="input-icon">📞</span><input name="contact_phone" type="tel" class="input" required placeholder="WhatsApp / Mobile number"></div><div class="form-hint">We may call or WhatsApp to confirm before approval.</div></div>
+            <button type="submit" class="btn btn-primary btn-full btn-xl btn-round">Submit application →</button>
+            <p class="caption text-center">By submitting, you agree to repay the full amount shown in the breakdown on the right, within the selected window.</p>
+          </form>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:16px;position:sticky;top:calc(var(--nav-h) + 20px)">
+        <div class="card reveal d1" style="border-color:var(--bdr)">
+          <div class="card-body">
+            <div class="flex f-between mb16"><div class="fw-600">💰 Breakdown</div><span class="badge badge-amber">Live</span></div>
+            <div id="applyBreakdown" class="breakdown">
+              <div class="breakdown-row"><span class="l">Principal</span><span class="r">—</span></div>
+              <div class="breakdown-row"><span class="l">Interest</span><span class="r">—</span></div>
+              <div class="breakdown-row total"><span class="l">Total repayable</span><span class="r">—</span></div>
+              <div class="breakdown-row"><span class="l">Repay by</span><span class="r" id="applyDueDate">—</span></div>
+            </div>
+            <p class="caption mt12">This amount is fixed. No additional charges.</p>
+          </div>
+        </div>
+        <div class="card reveal d2"><div class="card-body"><div class="fw-600 mb10">Requirements</div><div style="font-size:.84rem;color:var(--tx-2);display:flex;flex-direction:column;gap:7px"><div>✓ Logged in as student</div><div>✓ KYC approved</div><div>✓ Amount in package range</div><div>✓ Valid contact number</div><div>✓ Clear, specific purpose</div></div></div></div>
+        <div class="card reveal d3"><div class="card-body caption"><a href="https://wa.me/26776807549" target="_blank" style="color:var(--amber-2)">+267 76 807 549</a><br><a href="https://wa.me/26778322911" target="_blank" style="color:var(--amber-2)">+267 78 322 911</a></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="toastHost"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script type="module" src="assets/js/app.js"></script>
+</body>
+</html>

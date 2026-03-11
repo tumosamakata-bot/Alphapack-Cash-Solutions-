@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings · Alpha Pack Admin</title>
+  <link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body data-page="admin_settings">
+<div class="bg-canvas"><div class="bg-gradient"></div><canvas id="particleCanvas"></canvas></div>
+<div id="pageLoader"><div class="loader-mark">AP</div><div class="loader-track"><div class="loader-bar"></div></div></div>
+<div class="admin-bar">⚠ <strong>ADMIN AREA</strong> — Authorised staff only.</div>
+<nav class="nav" style="top:36px"><div class="nav-wrap">
+  <a href="../index.html" class="nav-logo" target="_blank"><div class="nav-logo-mark" style="background:linear-gradient(135deg,#e85555,#c0392b)">AP</div><div class="nav-logo-text"><strong>Admin Panel</strong><span style="color:var(--red)">Alpha Pack</span></div></a>
+  <nav class="nav-center"><a href="dashboard.html" class="nav-link">Dashboard</a><a href="insights.html" class="nav-link">Insights</a><a href="settings.html" class="nav-link">Settings</a><a href="ads.html" class="nav-link">Ads</a><a href="users.html" class="nav-link">Users</a></nav>
+  <div class="nav-right"><button id="adminLogout" class="btn btn-ghost btn-sm">Log out</button></div>
+  <button class="nav-burger" id="navBurger"><span></span><span></span><span></span></button>
+</div></nav>
+<div class="nav-drawer" id="navDrawer" style="top:calc(36px + var(--nav-h))">
+  <a href="dashboard.html" class="nav-drawer-link">Dashboard</a><a href="insights.html" class="nav-drawer-link">Insights</a><a href="settings.html" class="nav-drawer-link">Settings</a><a href="ads.html" class="nav-drawer-link">Ads</a><a href="users.html" class="nav-drawer-link">Users</a>
+  <div class="drawer-sep"></div><div class="drawer-actions"><button class="btn btn-ghost btn-full" onclick="document.getElementById('adminLogout').click()">Log out</button></div>
+</div>
+
+<div class="page-body" style="padding-top:calc(36px + var(--nav-h) + 24px);padding-bottom:60px">
+  <div class="wrap" style="max-width:760px">
+    <div class="eyebrow mb12 reveal">Configuration</div>
+    <h1 class="h3 mb8 reveal d1">Business <span class="grad-amber italic">settings</span></h1>
+    <p class="lead mb32 reveal d2" style="font-size:.95rem">Live business rules. Changes saved here take effect immediately on the platform.</p>
+
+    <div class="card reveal d2">
+      <div class="card-body-xl">
+        <form id="settingsForm" novalidate style="display:flex;flex-direction:column;gap:22px">
+          <div>
+            <div class="fw-600 mb4">Interest rates (%)</div>
+            <p class="caption mb16">Loans over P1,000 use the lower rate. At or below P1,000 uses the higher rate.</p>
+            <div class="form-grid-2">
+              <div class="form-field"><label class="form-label">Rate — small loans (≤P1,000)</label><div class="input-wrap"><input class="input" name="rate_max" type="number" value="30" min="1" max="100" step="1"><span class="input-suffix">%</span></div></div>
+              <div class="form-field"><label class="form-label">Rate — large loans (>P1,000)</label><div class="input-wrap"><input class="input" name="rate_min" type="number" value="25" min="1" max="100" step="1"><span class="input-suffix">%</span></div></div>
+            </div>
+          </div>
+          <div class="gold-rule"></div>
+          <div>
+            <div class="fw-600 mb4">Package limits (Pula)</div>
+            <p class="caption mb16">Maximum amount per package. Minimums are set in config.js.</p>
+            <div class="form-grid-2">
+              <div class="form-field"><label class="form-label">Starter max</label><div class="input-wrap"><span class="input-icon" style="font-family:var(--display)">P</span><input class="input" name="pkg_starter_max" type="number" value="500" min="100"></div></div>
+              <div class="form-field"><label class="form-label">Boost max</label><div class="input-wrap"><span class="input-icon" style="font-family:var(--display)">P</span><input class="input" name="pkg_boost_max" type="number" value="1000" min="500"></div></div>
+              <div class="form-field"><label class="form-label">Advance max</label><div class="input-wrap"><span class="input-icon" style="font-family:var(--display)">P</span><input class="input" name="pkg_advance_max" type="number" value="2000" min="1000"></div></div>
+              <div class="form-field"><label class="form-label">Premium max</label><div class="input-wrap"><span class="input-icon" style="font-family:var(--display)">P</span><input class="input" name="pkg_premium_max" type="number" value="5000" min="2000"></div></div>
+            </div>
+          </div>
+          <div class="gold-rule"></div>
+          <div>
+            <div class="fw-600 mb4">Helpdesk contacts</div>
+            <div class="form-grid-2">
+              <div class="form-field"><label class="form-label">Phone 1 (WhatsApp)</label><input class="input" name="phone1" type="tel" value="26776807549"></div>
+              <div class="form-field"><label class="form-label">Phone 2 (WhatsApp)</label><input class="input" name="phone2" type="tel" value="26778322911"></div>
+            </div>
+          </div>
+          <div class="flex gap12 f-wrap">
+            <button type="submit" class="btn btn-primary btn-round">Save settings</button>
+            <a href="https://supabase.com/dashboard" target="_blank" class="btn btn-outline btn-round">Open Supabase Dashboard ↗</a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="card mt20 reveal d3" style="border-color:var(--bdr);background:rgba(240,168,50,.03)">
+      <div class="card-body"><div class="fw-600 mb8">Current packages at a glance</div>
+      <div class="g4" style="grid-template-columns:repeat(4,1fr);gap:12px">
+        <div style="text-align:center;padding:12px;background:var(--glass);border-radius:var(--r-sm)"><div style="font-size:1.5rem;margin-bottom:6px">🚀</div><div class="fw-600" style="font-size:.82rem">Starter</div><div class="caption">P100–500</div></div>
+        <div style="text-align:center;padding:12px;background:var(--glass);border-radius:var(--r-sm)"><div style="font-size:1.5rem;margin-bottom:6px">📚</div><div class="fw-600" style="font-size:.82rem">Boost</div><div class="caption">P500–1k</div></div>
+        <div style="text-align:center;padding:12px;background:var(--glass);border-radius:var(--r-sm)"><div style="font-size:1.5rem;margin-bottom:6px">🎓</div><div class="fw-600" style="font-size:.82rem">Advance</div><div class="caption">P1k–2k</div></div>
+        <div style="text-align:center;padding:12px;background:var(--glass);border-radius:var(--r-sm)"><div style="font-size:1.5rem;margin-bottom:6px">💎</div><div class="fw-600" style="font-size:.82rem">Premium</div><div class="caption">P2k–5k</div></div>
+      </div></div>
+    </div>
+  </div>
+</div>
+<div id="toastHost"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script type="module" src="../assets/js/app.js"></script>
+</body>
+</html>

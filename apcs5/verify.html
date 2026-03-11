@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verify Student ID · Alpha Pack</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23f0a832'/><text x='16' y='22' text-anchor='middle' font-size='16' font-weight='900' font-family='serif' fill='%23040810'>AP</text></svg>">
+  <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body data-page="verify">
+<div class="bg-canvas"><div class="bg-gradient"></div><canvas id="particleCanvas"></canvas></div>
+<div id="pageLoader"><div class="loader-mark">AP</div><div class="loader-track"><div class="loader-bar"></div></div></div>
+<nav class="nav"><div class="nav-wrap">
+  <a href="index.html" class="nav-logo"><div class="nav-logo-mark">AP</div><div class="nav-logo-text"><strong>Alpha Pack</strong><span>Cash Solutions</span></div></a>
+  <nav class="nav-center"><a href="dashboard.html" class="nav-link">Dashboard</a><a href="verify.html" class="nav-link">Verify ID</a><a href="apply.html" class="nav-link">Apply</a></nav>
+  <div class="nav-right"><button id="logoutBtn" class="btn btn-ghost btn-sm">Log out</button></div>
+  <button class="nav-burger" id="navBurger"><span></span><span></span><span></span></button>
+</div></nav>
+<div class="nav-drawer" id="navDrawer">
+  <a href="dashboard.html" class="nav-drawer-link">Dashboard</a><a href="verify.html" class="nav-drawer-link">Verify ID</a><a href="apply.html" class="nav-drawer-link">Apply</a>
+  <div class="drawer-sep"></div><div class="drawer-actions"><button class="btn btn-ghost btn-full" onclick="document.getElementById('logoutBtn').click()">Log out</button></div>
+</div>
+
+<div class="page-body pt-nav section">
+  <div class="wrap" style="max-width:860px">
+    <div class="flex f-between gap16 mb28 f-wrap reveal">
+      <div>
+        <div class="eyebrow mb12">Step 2 of 3</div>
+        <h1 class="h3 mb8">Student ID verification</h1>
+        <p class="lead" style="font-size:.95rem">Upload or photograph your Student ID card — both sides. Required before any loan can be approved.</p>
+      </div>
+      <span class="status status-not_started shrink-0" id="kycBadge">Not started</span>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 300px;gap:24px;align-items:start">
+      <div id="kycForm">
+        <div class="card reveal">
+          <div class="card-body-xl">
+            <div class="fw-600 mb20">📸 Upload your Student ID photos</div>
+            <div class="form-grid-2 gap20">
+              <div>
+                <div class="form-label mb8">Front of card <span class="req">*</span></div>
+                <div class="upload-zone" id="frontZone"><input type="file" id="frontInput" accept="image/*"><div style="font-size:2rem;margin-bottom:8px">🪪</div><div class="fw-600 caption">Tap to upload front</div><div class="caption" style="margin-top:4px">or drag & drop</div></div>
+                <img class="upload-preview" id="frontPreview" alt="Front">
+              </div>
+              <div>
+                <div class="form-label mb8">Back of card <span class="req">*</span></div>
+                <div class="upload-zone" id="backZone"><input type="file" id="backInput" accept="image/*"><div style="font-size:2rem;margin-bottom:8px">🔄</div><div class="fw-600 caption">Tap to upload back</div><div class="caption" style="margin-top:4px">or drag & drop</div></div>
+                <img class="upload-preview" id="backPreview" alt="Back">
+              </div>
+            </div>
+            <div class="flex gap12 mt24 f-wrap">
+              <button id="camFrontBtn" class="btn btn-ghost">📷 Capture front</button>
+              <button id="camBackBtn"  class="btn btn-ghost">📷 Capture back</button>
+              <button id="submitKyc"   class="btn btn-primary">Submit for review →</button>
+            </div>
+            <p class="caption mt12">Camera requires HTTPS. Photos stored securely — admin review only. Never shared externally.</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div class="card reveal d1">
+          <div class="card-body">
+            <div class="fw-600 mb12">Progress</div>
+            <div style="display:flex;flex-direction:column;gap:10px;font-size:.83rem">
+              <div style="display:flex;gap:10px;align-items:flex-start"><span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span><span style="color:var(--tx-3);text-decoration:line-through">Create account</span></div>
+              <div style="display:flex;gap:10px;align-items:flex-start"><span style="color:var(--amber);font-weight:700;flex-shrink:0">→</span><span>Upload Student ID (here)</span></div>
+              <div style="display:flex;gap:10px;align-items:flex-start"><span style="color:var(--tx-4);flex-shrink:0">3</span><span style="color:var(--tx-4)">Admin review (1–2 days)</span></div>
+              <div style="display:flex;gap:10px;align-items:flex-start"><span style="color:var(--tx-4);flex-shrink:0">4</span><span style="color:var(--tx-4)">Apply for a loan</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="card reveal d2" style="border-color:var(--bdr);background:rgba(240,168,50,.04)">
+          <div class="card-body">
+            <div class="fw-600 mb8">📋 Photo tips</div>
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:6px;font-size:.82rem;color:var(--tx-2)">
+              <li>✓ Good lighting — no shadows</li><li>✓ All text clearly readable</li>
+              <li>✓ Full card in frame</li><li>✓ No glare or blur</li><li>✓ Both front & back required</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card reveal d3">
+          <div class="card-body caption"><a href="https://wa.me/26776807549" target="_blank" style="color:var(--amber-2)">+267 76 807 549</a><br>Mon–Fri 08:00–17:00</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Camera Modal -->
+<div class="modal-bg" id="camModal">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="fw-600">📷 Camera capture</span>
+      <button id="closeCam" class="btn btn-ghost btn-sm btn-icon">✕</button>
+    </div>
+    <div class="modal-body">
+      <div style="display:grid;grid-template-columns:1fr auto;gap:16px;align-items:start">
+        <video id="camVideo" style="width:100%;border-radius:var(--r-sm);border:1px solid var(--bdr);background:#000;min-height:160px" playsinline></video>
+        <div style="display:flex;flex-direction:column;gap:10px;width:110px">
+          <canvas id="camCanvas" style="width:110px;border-radius:var(--r-sm);border:1px solid var(--bdr)"></canvas>
+          <button id="snapBtn" class="btn btn-primary btn-sm btn-full">📸 Snap</button>
+        </div>
+      </div>
+      <p class="caption mt12">Snap the image then close this dialog. It will apply to the selected side (front or back).</p>
+    </div>
+  </div>
+</div>
+
+<div id="toastHost"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script type="module" src="assets/js/app.js"></script>
+</body>
+</html>

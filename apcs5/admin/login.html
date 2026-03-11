@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login · Alpha Pack</title>
+  <link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body data-page="admin_login">
+<div class="bg-canvas"><div class="bg-gradient"></div><canvas id="particleCanvas"></canvas></div>
+<div id="pageLoader"><div class="loader-mark">AP</div><div class="loader-track"><div class="loader-bar"></div></div></div>
+<div class="admin-bar">⚠ <strong>RESTRICTED AREA</strong> — Authorised personnel only.</div>
+<nav class="nav" style="top:36px"><div class="nav-wrap">
+  <a href="../index.html" class="nav-logo"><div class="nav-logo-mark" style="background:linear-gradient(135deg,#e85555,#c0392b);box-shadow:0 0 20px rgba(232,85,85,.4)">AP</div><div class="nav-logo-text"><strong>Admin Access</strong><span style="color:var(--red)">Alpha Pack</span></div></a>
+</div></nav>
+
+<div class="page-body pt-nav" style="min-height:100vh;display:flex;align-items:center;padding-top:calc(36px + var(--nav-h))">
+  <div class="wrap" style="max-width:420px;width:100%;padding-top:40px;padding-bottom:80px">
+    <div class="text-center mb32 reveal">
+      <div class="nav-logo-mark" style="margin:0 auto 16px;width:52px;height:52px;font-size:18px;background:linear-gradient(135deg,#e85555,#c0392b);box-shadow:0 0 20px rgba(232,85,85,.4)">🛡</div>
+      <h1 class="h4 mb4">Admin login</h1>
+      <p class="caption">Authorised staff only. All access is logged.</p>
+    </div>
+    <div class="card reveal d1" style="border-color:rgba(232,85,85,.25)">
+      <div class="card-body-xl">
+        <form id="adminLoginForm" novalidate style="display:flex;flex-direction:column;gap:18px">
+          <div class="form-field"><label class="form-label">Admin email</label><div class="input-wrap"><span class="input-icon">@</span><input class="input" name="email" type="email" required placeholder="admin@..." autocomplete="email"></div></div>
+          <div class="form-field"><label class="form-label">Password</label><div style="position:relative"><input class="input" name="password" type="password" required placeholder="••••••••••" autocomplete="current-password"><button type="button" class="pw-eye">👁</button></div></div>
+          <button type="submit" class="btn btn-full btn-xl btn-round" style="background:linear-gradient(135deg,#e85555,#c0392b);color:#fff;border:none;box-shadow:0 4px 20px rgba(232,85,85,.35);font-weight:700">Enter admin panel →</button>
+        </form>
+        <div class="text-center mt20 caption">First time? Create admin at <span class="mono" style="background:var(--glass-2);padding:2px 6px;border-radius:4px">admin/provision.html</span> — then delete it.</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="toastHost"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script type="module" src="../assets/js/app.js"></script>
+</body>
+</html>

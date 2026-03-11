@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Create your Alpha Pack student account. Students only — verified ID required.">
+  <title>Create Account · Alpha Pack</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23f0a832'/><text x='16' y='22' text-anchor='middle' font-size='16' font-weight='900' font-family='serif' fill='%23040810'>AP</text></svg>">
+  <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body data-page="register">
+<div class="bg-canvas"><div class="bg-gradient"></div><canvas id="particleCanvas"></canvas></div>
+<div id="pageLoader"><div class="loader-mark">AP</div><div class="loader-track"><div class="loader-bar"></div></div></div>
+<nav class="nav"><div class="nav-wrap">
+  <a href="index.html" class="nav-logo"><div class="nav-logo-mark">AP</div><div class="nav-logo-text"><strong>Alpha Pack</strong><span>Cash Solutions</span></div></a>
+  <div class="nav-right"><a href="login.html" class="btn btn-ghost btn-sm">Log in</a></div>
+  <button class="nav-burger" id="navBurger"><span></span><span></span><span></span></button>
+</div></nav>
+<div class="nav-drawer" id="navDrawer">
+  <a href="index.html" class="nav-drawer-link">Home</a><a href="faq.html" class="nav-drawer-link">FAQ</a>
+  <div class="drawer-sep"></div><div class="drawer-actions"><a href="login.html" class="btn btn-ghost btn-full">Log in</a></div>
+</div>
+
+<div class="page-body pt-nav">
+  <div class="section">
+    <div class="wrap" style="max-width:860px">
+      <div style="display:grid;grid-template-columns:1fr 340px;gap:32px;align-items:start">
+        <div class="card amber-border reveal">
+          <div class="card-body-xl">
+            <div class="flex f-between gap12 mb20 f-wrap">
+              <div><h1 class="h4 mb4">Create your student account</h1><p class="caption">Students only. Non-students are not eligible.</p></div>
+              <span class="badge badge-amber shrink-0">🎓 Students only</span>
+            </div>
+            <div class="gold-rule mb24"></div>
+            <form id="registerForm" novalidate style="display:flex;flex-direction:column;gap:18px">
+              <div class="form-field"><label class="form-label" for="rName">Full name <span class="req">*</span></label><input class="input" id="rName" name="name" type="text" required minlength="2" placeholder="As on your Student ID" autocomplete="name"></div>
+              <div class="form-grid-2">
+                <div class="form-field"><label class="form-label">Email <span class="req">*</span></label><input class="input" name="email" type="email" required placeholder="you@example.com" autocomplete="email"></div>
+                <div class="form-field"><label class="form-label">Phone / WhatsApp <span class="req">*</span></label><input class="input" name="phone" type="tel" required placeholder="e.g. 76XXXXXX" autocomplete="tel"></div>
+              </div>
+              <div class="form-grid-2">
+                <div class="form-field"><label class="form-label">Password <span class="req">*</span></label><div style="position:relative"><input class="input" name="password" type="password" required minlength="8" placeholder="Min. 8 characters" autocomplete="new-password"><button type="button" class="pw-eye">👁</button></div><div class="form-hint">Minimum 8 characters</div></div>
+                <div class="form-field"><label class="form-label">Confirm password <span class="req">*</span></label><div style="position:relative"><input class="input" name="confirm_pw" type="password" required placeholder="Repeat password" autocomplete="new-password"><button type="button" class="pw-eye">👁</button></div></div>
+              </div>
+              <div class="gold-rule"></div>
+              <div style="margin:-4px 0 4px"><div class="fw-600 mb4">Your student details</div><div class="caption">Required to verify and process your application.</div></div>
+              <div class="form-field"><label class="form-label">Institution <span class="req">*</span></label><input class="input" name="institution" required placeholder="e.g. Botswana Accountancy College, UB, BCA…"></div>
+              <div class="form-grid-2">
+                <div class="form-field"><label class="form-label">Program / Course <span class="req">*</span></label><input class="input" name="program" required placeholder="e.g. Business Administration"></div>
+                <div class="form-field"><label class="form-label">Year of study <span class="req">*</span></label><select class="input" name="year" required><option value="">Select…</option><option value="1">Year 1</option><option value="2">Year 2</option><option value="3" selected>Year 3</option><option value="4">Year 4</option><option value="5">Year 5+</option></select></div>
+              </div>
+              <div class="form-field"><label class="form-label">Student ID number <span class="req">*</span></label><input class="input" name="student_id" required placeholder="As printed on your Student ID card"><div class="form-hint">You'll photograph this card in the next step.</div></div>
+              <button type="submit" class="btn btn-primary btn-full btn-xl btn-round mt8">Create account — it's free →</button>
+              <div class="flex f-between mt4 caption"><a href="login.html" style="color:var(--tx-3)">Already have an account?</a><a href="index.html" style="color:var(--tx-3)">← Back</a></div>
+            </form>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div class="card reveal d1"><div class="card-body"><div class="h5 mb12">After registration…</div><div style="display:flex;flex-direction:column;gap:12px;font-size:.845rem"><div style="display:flex;gap:10px"><span style="color:var(--green);font-weight:700">1</span><span>Account created & confirmed via email</span></div><div style="display:flex;gap:10px"><span style="color:var(--orange);font-weight:700">2</span><span>Upload Student ID photos (1–2 min)</span></div><div style="display:flex;gap:10px"><span style="color:var(--orange);font-weight:700">3</span><span>Admin reviews — 1–2 business days</span></div><div style="display:flex;gap:10px"><span style="color:var(--amber);font-weight:700">4</span><span>Approved → apply for a loan</span></div></div></div></div>
+          <div class="card reveal d2" style="border-color:var(--bdr);background:rgba(240,168,50,.04)"><div class="card-body"><div class="fw-600 mb8">💡 Quick tip</div><div class="caption">Keep your Student ID card nearby — you'll need to photograph both sides to unlock loan applications.</div></div></div>
+          <div class="card reveal d3"><div class="card-body"><div class="fw-600 mb8">💬 Need help?</div><div class="caption"><a href="https://wa.me/26776807549" target="_blank" style="color:var(--amber-2)">WhatsApp 26776807549</a><br><a href="https://wa.me/26778322911" target="_blank" style="color:var(--amber-2)">WhatsApp 26778322911</a><br><span class="text-dim">Mon–Fri 08:00–17:00</span></div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<a href="https://wa.me/26776807549" target="_blank" class="wa-float" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.37 5.07L2 22l5.07-1.35C8.45 21.52 10.19 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.66 0-3.22-.46-4.55-1.27l-.32-.19-3.37.9.91-3.33-.21-.34C3.46 14.95 3 13.52 3 12c0-4.97 4.03-9 9-9s9 4.03 9 9-4.03 9-9 9z"/></svg></a>
+<div id="toastHost"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script type="module" src="assets/js/app.js"></script>
+</body>
+</html>
